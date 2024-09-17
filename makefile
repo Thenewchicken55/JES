@@ -1,0 +1,2 @@
+run:
+	wslview home.html
