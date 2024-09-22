@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "name": "jes",
+  "version": "1.0.0",
+  "description": "A financial budgeting tool made by our team (The Kernels).",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
