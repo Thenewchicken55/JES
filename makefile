@@ -1,3 +1,8 @@
+install:
+	npm install
+
 run:
 	wslview home.html
- 	nodemon index.js
+
+dev:
+	./node_modules/.bin/nodemon index.js
