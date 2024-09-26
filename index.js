@@ -5,11 +5,10 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'UI')));
 
 app.get('/', (request, response) => {
-
-    response.sendFile(path.join(__dirname, '/home.html'));
+    response.sendFile(path.join(__dirname, 'UI', 'home.html'));
 
     // readFile('./home.html', 'utf8', (err, html) => {
     //     if (err) {

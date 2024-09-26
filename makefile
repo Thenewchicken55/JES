@@ -16,7 +16,7 @@ install:
 
 
 run:
-	wslview home.html
+	wslview UI/home.html
 
 dev:
 	./node_modules/.bin/nodemon index.js
