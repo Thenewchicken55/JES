@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Budgets</title>
+        <link rel="stylesheet" href="style.css" /> 
+    </head>
+    <body>
+        <header id="header" class="site-header"> 
+        <h1 class="site-title">JES - Financial Budgeting Tool</h1>
+        <nav class="site-navigation">
+        <ul class="nav-menu">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="AI.html">AI</a></li>
+        <li><a href="Budgets.html">Budgets</a></li>
+        </ul>
+        </header> 
+
+        <article id="main" class="content"> 
+
+        <h2>Budgets</h2>
+
+        <button onclick="loadContent('content1', 'budget1')">Budget 1</button>
+        <div id="content1" style="display:none;">
+            <p>Loading...</p>
+        </div>
+
+        <button onclick="loadContent('content2', 'budget2')">Budget 2</button>
+        <div id="content2" style="display:none;">
+            <p>Loading...</p>
+        </div>
+
+        <button onclick="loadContent('content3', 'budget3')">Budget 3</button>
+        <div id="content3" style="display:none;">
+            <p>Loading...</p>
+        </div>
+
+        <script>
+            const cachedData = {
+            budget1: "<p>A Content for Budget 1</p>",
+            budget2: "<p>B Content for Budget 2</p>",
+            budget3: "<p>C Content for Budget 3</p>"
+            };
+
+            function loadContent(id, key) {
+            var content = document.getElementById(id);
+            if (content.style.display === "none") {
+                content.innerHTML = cachedData[key];
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+            }
+        </script>
+
+        </article> 
+
+        <footer>
+        <p>© 2024 University of Akron. All Rights Reserved - Elia Albaba</p>
+        </footer> 
+
+    </body>
+</html>
