@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JES - Financial Budgeting Tool</title>
+        <link rel="stylesheet" href="style.css" /> 
+        <style>
+            table, th, td {
+              border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <header id="header" class="site-header"> 
+        <h1 class="site-title">Categories</h1>
+        <nav class="site-navigation">
+        <ul class="nav-menu">
+        <li><a href="home.html">Home</a></li>
+        </ul>
+        </header> 
+
+        <article id="main" class="content"> 
+
+        <h2>Monthly Category Limits</h2>
+        
+        <label for="CategoryName">Category</label>
+        <title></title>
+        <select name="CategoryName" id="CategoryName">
+            <option value="none" selected disabled hidden>Select an option</option>
+            <option value="Paycheck1">Paycheck1</option>
+            <option value="Paycheck2">Paycheck2</option>
+            <option value="EmergencyFund">EmergencyFund</option>
+            <option value="Gas">Gas</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Restaurants">Restaurants</option>
+            <option value="Clothing">Clothing</option>
+        </select>
+
+        <input type="text" id="value" name=""value" value="0.00">
+
+        <button type="button">Submit</button>
+
+        <br> </br>
+
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Paycheck1</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td>PayCheck2</td>
+                <td>$0.00</td>
+            </tr>
+        </table>
+
+        </article>
+
+        <footer>
+        <p>© 2024 University of Akron. All Rights Reserved -- The Kernels (Javan Miller, Elia Albaba, and Spencer Simms)</p>
+        </footer> 
+
+    </body>
+</html>
