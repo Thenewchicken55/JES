@@ -1,8 +1,9 @@
-# TODO
+#  TODO
 
-- Put this on a node.js server
+- Migrate to next.js
 - Add README.md
-- Have a UserData.json file to read budgets from
-- Improve the way budgets expand out
-- Add ability to add or delete budgets
--
+- Create API to interface SQL server to user
+- Budgets page
+    - Add/Delete Budgets/Categories
+- Transactions page
+- Login page
