@@ -1,2 +1,4 @@
 node_modules/
 ./node_modules/*
+/jes/node_modules/
+.DS_Store
