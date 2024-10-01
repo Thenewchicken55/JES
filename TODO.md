@@ -1,6 +1,7 @@
 #  TODO
 
-- Migrate to next.js
+- Move ./pages/ to ./app/
+- Make new icon for website
 - Add README.md
 - Create API to interface SQL server to user
 - Budgets page
