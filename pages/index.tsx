@@ -1,4 +1,4 @@
-import "../app/style.css"
+import "../app/globals.css"
 
 const header = (
     <>

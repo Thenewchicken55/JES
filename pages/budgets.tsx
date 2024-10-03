@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import "../app/style.css"
+import "../app/globals.css"
 
 
 const preface = (
   <>
     <title>Budgets</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="globals.css" />
   </>
 );
 

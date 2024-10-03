@@ -1,9 +1,9 @@
-import "../app/style.css"
+import "../app/globals.css"
 
 const element = (
     <>
   <title>JES - Financial Budgeting Tool</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="globals.css" />
   <header id="header" className="site-header">
     <h1 className="site-title">AI Chatbot</h1>
     <nav className="site-navigation">
