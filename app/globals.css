@@ -101,7 +101,7 @@ ul.nav-menu li {
 
 #main {
     margin:0 auto;
-    background-color:#A9D6E5;
+    background-color:#012A4A;
 }
 
 .content {
@@ -109,19 +109,21 @@ ul.nav-menu li {
     padding:30px;
     margin:50px 0px 50px 0px;
     font-size:18px;
+    color:#012A4A
 }
 
 .content p {
     margin:50px 20px 50px 20px;
+    color:#A9D6E5
 }
 
 a.cta-button {
-    background-color: green;
+    background-color: #2C7DA0;
     padding: 20px 100px 20px 100px;
-    color: #fff;
+    color: #A9D6E5;
     text-decoration: none;
     font-size: xxx-large;
-    border:2px solid #abfcab;
+    border:2px solid #2A6F97;
     border-radius:18px;
 
 }
