@@ -85,15 +85,32 @@ h2 {
     margin:20px 50px 0px 0px;
 }
 
-ul.nav-menu {
+.nav-menu {
     list-style-type:none;
     list-style:none;
-}
-ul.nav-menu li {
-    display:inline;
-    padding-right:20px;
+    padding :0;
 }
 
+.nav-menu li {
+    display:inline;
+    margin-right:20px;
+}
+
+.nav-button {
+    background-color: #2C7DA0;
+    padding: 10px 20px;
+    color: #A9D6E5;
+    text-decoration: none;
+    font-size: 16px;
+    border: 2px solid #2A6F97;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #2A6F97;
+    color: #A9D6E5;
+}
 
 .site-header:after{
     clear:both;

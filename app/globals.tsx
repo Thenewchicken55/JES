@@ -9,16 +9,16 @@ export const header = (
             <nav className="site-navigation">
                 <ul className="nav-menu">
                 <li>
-                    <a href="/">Home</a>
+                    <a href="/" className="nav-button">Home</a>
                 </li>
                 <li>
-                    <a href="/budgets">Budgets</a>
+                    <a href="/budgets" className="nav-button">Budgets</a>
                 </li>
                 <li>
-                    <a href="/transactions">Transactions</a>
+                    <a href="/transactions" className="nav-button">Transactions</a>
                 </li>
                 <li>
-                    <a href="/AI">AI</a>
+                    <a href="/AI" className="nav-button">AI</a>
                 </li>
                 </ul>
             </nav>
