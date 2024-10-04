@@ -1,4 +1,5 @@
 import "../app/globals.css"
+import { header, footer } from "../app/globals.tsx"
 
 const element = (
     <>
