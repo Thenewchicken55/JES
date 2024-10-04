@@ -37,14 +37,18 @@ const body = (
         on certain ameneties so that the user can keep track of their
         transactions. JES also offers some tips with learning to control budgets.
       </p>
-      <p>
         <a href="/budgets" className="cta-button">
           Get Started
         </a>
         <a href="/AI" className="cta-button">
           Need Help?
         </a>
-      </p>
+        <a href="/AI" className="cta-button">
+          Meet the team
+        </a>
+        <a href="/AI" className="cta-button">
+          Contact us
+        </a>
     </article>
   </>
 );
