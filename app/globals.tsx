@@ -2,7 +2,6 @@ import * as React from 'react';
 
 export const header = (
     <>
-        <title>Home</title>
         <link rel="stylesheet" href="globals.css" />
         <header id="header" className="site-header">
             <h1 className="site-title">JES - Financial Budgeting Tool</h1>

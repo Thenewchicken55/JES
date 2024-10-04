@@ -1,6 +1,12 @@
 import "../app/globals.css"
 import { header, footer } from "../app/globals.tsx"
 
+const pageTitle =(
+  <>
+      <title>Home</title>
+  </>
+)
+
 const body = (
   <>
     <article id="main" className="content">
@@ -34,6 +40,7 @@ const body = (
 export default function Index() {
   return (
     <>
+      {pageTitle}
       {header}
       {body}
       {footer}
