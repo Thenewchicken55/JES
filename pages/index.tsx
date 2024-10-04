@@ -33,16 +33,14 @@ const body = (
         whole thing sounds like you're yelling "Yes!"{" "}
       </p>
       <p>
-        <a href="/budgets" className="cta-button">
-          Get Started
-        </a>
-      </p>
-      <p>
         This tool is used to keep track of personal finances and placing budgets
         on certain ameneties so that the user can keep track of their
         transactions. JES also offers some tips with learning to control budgets.
       </p>
       <p>
+        <a href="/budgets" className="cta-button">
+          Get Started
+        </a>
         <a href="/AI" className="cta-button">
           Need Help?
         </a>
