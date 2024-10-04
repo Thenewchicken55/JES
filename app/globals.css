@@ -135,7 +135,15 @@ h2 {
     color:#A9D6E5
 }
 
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 a.cta-button {
+    flex: 1 1 auto; /* Allow buttons to grow and shrink */
+    font-size: fit-content;
     background-color: #2C7DA0;
     padding: 20px 50px 20px 50px;
     color: #A9D6E5;
@@ -143,9 +151,20 @@ a.cta-button {
     font-size: 20;
     border:2px solid #2A6F97;
     border-radius:18px;
-    margin-right: 15px;
-    margin-left: 7px;
+    margin-right: 2%;
+    margin-bottom: 10px; /* Add margin to the bottom for wrapping */
+    text-align: center;
 }
+
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    a.cta-button {
+        flex: 1 1 100%; /* Make buttons full width on small screens */
+        margin-right: 0;
+    }
+}
+
 
 footer {
     position: fixed;

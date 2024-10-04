@@ -13,15 +13,15 @@ const body = (
         <article id="main" className="content">
             <h2>Current month</h2>
 
-            <div>
+            <div className = "button-container">
                 <button>Budget 1</button>
             </div>
 
             <h2>Logged Budgets</h2>
-            <div>
+            <div className = "button-container">
                 <button>Budget 2</button>
             </div>
-            <div>
+            <div className = "button-container">
                 <button>Budget 3</button>
             </div>
         </article>
