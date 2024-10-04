@@ -1,36 +1,44 @@
+/* color pallete:https://coolors.co/palette/012a4a-013a63-01497c-014f86-2a6f97-2c7da0-468faf-61a5c2-89c2d9-a9d6e5 */
+
 body {
     margin:0;
     padding:0;
-    font-family:sans-serif; 
+    font-family:sans-serif;
     font-size:16px;
-    background-color:#f2ffee;
+    height: 100%;
+    background-color:#012A4A;
+}
+html {
+    height: 100%;
+    margin: 0;
 }
 
 button {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
+    background-color: #2A6F97; /* Green background */
+    color: A9D6E5; /* White text */
     padding: 12px 24px; /* Padding */
     font-size: 16px; /* Font size */
     border: none; /* Remove border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Pointer/hand icon */
-    box-shadow: 0 4px #999; /* Add shadow */
+    box-shadow: 0 4px #013A63; /* Add shadow */
     transition: 0.3s; /* Smooth transition for hover effects */
 }
 
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #2C7DA0; /* Darker green on hover */
 }
 
 button:active {
-    background-color: #3e8e41; /* Even darker green when pressed */
-    box-shadow: 0 2px #666; /* Adjust shadow on click */
+    background-color: #2A6F97; /* Even darker green when pressed */
+    box-shadow: 0 2px #014F86; /* Adjust shadow on click */
     transform: translateY(2px); /* Move button slightly down when pressed */
 }
 
-h1, h2, h3 { 
-font-family:Georgia, Times, serif; 
-} 
+h1, h2, h3 {
+    font-family:Georgia, Times, serif;
+    color:#A9D6E5
+}
 
 /* Popup Styles */
 .popup {
@@ -66,63 +74,63 @@ font-family:Georgia, Times, serif;
     opacity: 1;
 }
 
-h2 { 
+h2 {
 font-size:xx-large;
 }
- 
+
 .site-header {
-background-color:#2751ac;
+background-color:#012A4A;
 width:100%;
-padding:20px; 
+padding:20px;
 overflow: auto;
 color:#FFF;
-    } 
- 
-     
-.site-title { 
-float:left; 
+    }
+
+
+.site-title {
+float:left;
 }
- 
-.site-navigation { 
- 
+
+.site-navigation {
+
 float:right;
 text-align:right;
 margin:20px 50px 0px 0px;
-} 
- 
-ul.nav-menu { 
+}
+
+ul.nav-menu {
 list-style-type:none;
 list-style:none;
 }
-ul.nav-menu li { 
+ul.nav-menu li {
 display:inline;
 padding-right:20px;
 }
- 
- 
-.site-header:after{ 
+
+
+.site-header:after{
 clear:both;
 }
- 
+
 #main {
- 
-margin:0 auto; 
+
+margin:0 auto;
 background-color:#FFF;
-    } 
- 
+    }
+
 .content {
-     
+
 max-width:60%;
 padding:30px;
 margin:50px 0px 50px 0px;
 font-size:18px;
 }
- 
-.content p { 
-margin:50px 20px 50px 20px; 
- 
+
+.content p {
+margin:50px 20px 50px 20px;
+
 }
- 
+
 a.cta-button {
     background-color: green;
     padding: 20px 100px 20px 100px;
@@ -131,13 +139,13 @@ a.cta-button {
     font-size: xxx-large;
     border:2px solid #abfcab;
     border-radius:18px;
-    
+
 }
- 
+
 footer {
-background-color:#2751ac;
+background-color:#012A4A;
 width:100%;
-padding:20px; 
+padding:20px;
 overflow: auto;
 color:#FFF;
-    } 
+    }
