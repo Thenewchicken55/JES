@@ -17,6 +17,9 @@ export const header = (
                 <li>
                     <a href="/transactions">Transactions</a>
                 </li>
+                <li>
+                    <a href="/AI">AI</a>
+                </li>
                 </ul>
             </nav>
         </header>
