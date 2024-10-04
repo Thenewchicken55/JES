@@ -14,6 +14,7 @@ html {
 }
 
 button {
+    margin-top: 20px;
     background-color: #2A6F97; /* Green background */
     color: A9D6E5; /* White text */
     padding: 12px 24px; /* Padding */

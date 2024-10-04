@@ -11,11 +11,13 @@ const pageTitle =(
 const body = (
     <>
         <article id="main" className="content">
-            <h2>Budgets</h2>
+            <h2>Current month</h2>
 
             <div>
                 <button>Budget 1</button>
             </div>
+
+            <h2>Logged Budgets</h2>
             <div>
                 <button>Budget 2</button>
             </div>
