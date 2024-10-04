@@ -129,6 +129,10 @@ a.cta-button {
 }
 
 footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     background-color:#012A4A;
     width:100%;
     padding:20px;
