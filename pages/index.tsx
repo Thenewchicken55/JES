@@ -1,27 +1,11 @@
-import "../app/style.css"
+import "../app/globals.css"
+import { header, footer } from "../app/globals.tsx"
 
-const header = (
-    <>
-    <title>Home</title>
-    <link rel="stylesheet" href="globals.css" />
-    <header id="header" className="site-header">
-      <h1 className="site-title">JES - Financial Budgeting Tool</h1>
-      <nav className="site-navigation">
-        <ul className="nav-menu">
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/budgets">Budgets</a>
-          </li>
-          <li>
-            <a href="/transactions">Transactions</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    </>
-);
+const pageTitle =(
+  <>
+      <title>Home</title>
+  </>
+)
 
 const body = (
   <>
@@ -33,38 +17,30 @@ const body = (
         whole thing sounds like you're yelling "Yes!"{" "}
       </p>
       <p>
-        <a href="/budgets" className="cta-button">
-          Get Started
-        </a>
-      </p>
-      <p>
         This tool is used to keep track of personal finances and placing budgets
         on certain ameneties so that the user can keep track of their
         transactions. JES also offers some tips with learning to control budgets.
       </p>
-      <p>
+        <a href="/budgets" className="cta-button">
+          Get Started
+        </a>
         <a href="/AI" className="cta-button">
           Need Help?
         </a>
-      </p>
+        <a href="/AI" className="cta-button">
+          Meet the team
+        </a>
+        <a href="/AI" className="cta-button">
+          Contact us
+        </a>
     </article>
-  </>
-);
-
-const footer = (
-  <>
-    <footer>
-      <p>
-        © 2024 University of Akron. All Rights Reserved -- The Kernels (Javan
-        Miller, Elia Albaba, and Spencer Simms)
-      </p>
-    </footer>
   </>
 );
 
 export default function Index() {
   return (
     <>
+      {pageTitle}
       {header}
       {body}
       {footer}

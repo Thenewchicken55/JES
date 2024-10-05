@@ -1,32 +1,28 @@
-import "../app/style.css"
+import "../app/globals.css"
+import { header, footer } from "../app/globals.tsx"
 
-const header = (
+const pageTitle =(
     <>
-    <title>Home</title>
-    <link rel="stylesheet" href="globals.css" />
-    <header id="header" className="site-header">
-      <h1 className="site-title">JES - Financial Budgeting Tool</h1>
-      <nav className="site-navigation">
-        <ul className="nav-menu">
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="AI.html">AI</a>
-          </li>
-          <li>
-            <a href="Budgets.html">Budgets</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+        <title>Transactions</title>
     </>
-);
+)
+
+const body = (
+    <>
+        <article id="main" className="content">
+            <h2>Stop spending so much!</h2>
+            <h2>Get a job!</h2>
+        </article>
+    </>
+)
 
 export default function Transactions() {
     return (
         <>
+            {pageTitle}
             {header}
+            {body}
+            {footer}
         </>
     );
 }
