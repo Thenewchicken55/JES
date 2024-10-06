@@ -15,34 +15,36 @@ if (!apiKey) {
 const groq = new Groq({ apiKey: apiKey, dangerouslyAllowBrowser: true});
 
 
-export const GroqChat = () => {
+interface GroqChatProps {
+    content: string;
+}
+
+export const GroqChat: React.FC<GroqChatProps> = ({ content }) => {
     const [chatCompletion, setChatCompletion] = useState("");
 
     useEffect(() => {
         const fetchChatCompletion = async () => {
-            const completion = await getGroqChatCompletion();
+            const completion = await getGroqChatCompletion(content);
             setChatCompletion(completion.choices[0]?.message?.content || "");
         };
 
         fetchChatCompletion();
-    }, []);
+    }, [content]);
 
-    const getGroqChatCompletion = async () => {
+    const getGroqChatCompletion = async (content: string) => {
         return groq.chat.completions.create({
             messages: [
                 {
-                    role: "user",
-                    content: "Explain the importance of fast language models",
+                    role: "assistant",
+                    content: content,
                 },
             ],
-            model: "llama3-8b-8192",
+            model: "llama-3.1-70b-versatile",
         });
     };
 
-    console.log(chatCompletion);
     return <p>{chatCompletion}</p>;
 };
-
 
 const pageTitle =(
     <>
@@ -50,13 +52,7 @@ const pageTitle =(
     </>
 );
 
-const body = (
-    <>
-
-    </>
-);
-
-export default function Transactions() {
+export default function AI() {
     const [userInput, setUserInput] = useState('');
     const [output, setOutput] = useState('');
 
@@ -65,23 +61,21 @@ export default function Transactions() {
     };
 
     const processInput = () => {
-        setOutput(userInput);
+        setOutput("Loading...");
+        setTimeout(() => {
+            setOutput(userInput);
+        }, 1000); // Adjust the delay as needed
     };
 
     return (
         <>
             {pageTitle}
             {header}
-            {body}
             <article id="main" className="content">
-                <h2>Whisper!</h2>
 
                 <input type="text" id="userInput" placeholder="Enter your text here" value={userInput} onChange={handleInputChange}></input>
                 <button onClick={processInput}>Submit</button>
-                <div id="output" className="output">
-                {output}
-                </div>
-                <GroqChat />
+                <GroqChat content={output}/>
             </article>
             {footer}
         </>
