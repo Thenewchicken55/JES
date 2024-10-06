@@ -35,8 +35,8 @@ export const GroqChat: React.FC<GroqChatProps> = ({ content }) => {
         return groq.chat.completions.create({
             messages: [
                 {
-                    role: "assistant",
-                    content: content,
+                    role: "user",
+                    content: "Don't use markdown syntax:\n" + content,
                 },
             ],
             model: "llama-3.1-70b-versatile",
@@ -63,6 +63,7 @@ export default function AI() {
     const processInput = () => {
         setOutput("Loading...");
         setTimeout(() => {
+            setOutput("Loading...");
             setOutput(userInput);
         }, 1000); // Adjust the delay as needed
     };
@@ -73,8 +74,8 @@ export default function AI() {
             {header}
             <article id="main" className="content">
 
-                <input type="text" id="userInput" placeholder="Enter your text here" value={userInput} onChange={handleInputChange}></input>
-                <button onClick={processInput}>Submit</button>
+                <input className="inputBox" type="text" id="userInput" placeholder="Enter your text here" value={userInput} onChange={handleInputChange}></input>
+                <button onClick={processInput} style={{ marginLeft: '10px'}}>Submit</button>
                 <GroqChat content={output}/>
             </article>
             {footer}
