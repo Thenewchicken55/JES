@@ -4,7 +4,15 @@ import { header, footer } from "../app/globals.tsx";
 
 import "../app/globals.css";
 
-const groq = new Groq({ apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY, dangerouslyAllowBrowser: true});
+// Check if the environment variable is set
+const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+
+if (!apiKey) {
+    alert("The GROQ_API_KEY environment variable is missing or empty. Please create a .env.local file and set the NEXT_PUBLIC_GROQ_API_KEY variable.");
+    throw new Error("The GROQ_API_KEY environment variable is missing or empty.");
+}
+
+const groq = new Groq({ apiKey: apiKey, dangerouslyAllowBrowser: true});
 
 
 export const GroqChat = () => {
