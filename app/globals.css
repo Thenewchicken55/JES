@@ -63,6 +63,11 @@ h1, h2, h3 {
     opacity: 1;
 }
 
+/* globals.css */
+.output {
+  color: #A9D6E5; /* Set the desired color */
+}
+
 h2 {
     font-size:xx-large;
 }
