@@ -3,3 +3,7 @@ init:
 
 run:
 	npm run dev
+
+# run server on port 80
+run80:
+	sudo PORT=80 npm run dev &
