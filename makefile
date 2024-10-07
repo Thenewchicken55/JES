@@ -9,4 +9,4 @@ run:
 
 # run server on port 80
 runServer: build
-	sudo PORT=80 npm run dev &
+	sudo npm run start -- --port 80 &
