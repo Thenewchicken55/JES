@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { header, footer } from "../app/globals.tsx"
 import { Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell, getKeyValue} from "@nextui-org/table";
-
 import "../app/globals.css"
 
 const pageTitle =(
