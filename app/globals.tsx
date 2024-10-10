@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'next/link';
 
 export const header = (
     <>
@@ -8,16 +9,16 @@ export const header = (
             <nav className="site-navigation">
                 <ul className="nav-menu">
                 <li>
-                    <a href="/" className="nav-button">Home</a>
+                    <Link href="/" className="nav-button">Home</Link>
                 </li>
                 <li>
-                    <a href="/budgets" className="nav-button">Budgets</a>
+                    <Link href="/budgets" className="nav-button">Budgets</Link>
                 </li>
                 <li>
-                    <a href="/transactions" className="nav-button">Transactions</a>
+                    <Link href="/transactions" className="nav-button">Transactions</Link>
                 </li>
                 <li>
-                    <a href="/AI" className="nav-button">AI</a>
+                    <Link href="/AI" className="nav-button">AI</Link>
                 </li>
                 </ul>
             </nav>
