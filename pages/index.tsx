@@ -23,7 +23,6 @@ const body = (
         on certain ameneties so that the user can keep track of their
         transactions. JES also offers some tips with learning to control budgets.
       </p>
-      {/* <div className="button-container"> */}
       <ButtonGroup aria-label="Main Page">
         <Button href="/budgets" variant="primary" className = "cta-button">
           Get Started
@@ -38,7 +37,6 @@ const body = (
           Contact us
         </Button>
       </ButtonGroup>
-      {/* </div> */}
     </article>
   </>
 );
