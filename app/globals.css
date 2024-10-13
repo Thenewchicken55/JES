@@ -157,7 +157,7 @@ h2 {
     justify-content: space-between;
 }
 
-a.cta-button {
+.cta-button {
     flex: 1 1 auto; /* Allow buttons to grow and shrink */
     font-size: fit-content;
     background-color: #2C7DA0;
