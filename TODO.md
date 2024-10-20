@@ -8,4 +8,5 @@
 - Budgets page
     - Add/Delete Budgets/Categories
 - Transactions page
+- Add articles/news page
 - Login page

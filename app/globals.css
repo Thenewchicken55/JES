@@ -63,6 +63,22 @@ h1, h2, h3 {
     opacity: 1;
 }
 
+/* globals.css */
+.output {
+  color: #A9D6E5; /* Set the desired color */
+}
+
+.inputBox {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #A9D6E5;
+    font-size: 16px;
+}
+
 h2 {
     font-size:xx-large;
 }
@@ -141,7 +157,7 @@ h2 {
     justify-content: space-between;
 }
 
-a.cta-button {
+.cta-button {
     flex: 1 1 auto; /* Allow buttons to grow and shrink */
     font-size: fit-content;
     background-color: #2C7DA0;
