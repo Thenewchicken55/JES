@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const connection = await connectToDatabase();
     const [results] = await connection.query('SHOW tables;');
     res.status(200).json(results);
-    await connection.end(); // Make sure to close the connection
+    await connection.end();
   } catch (error) {
     console.error('Database connection error:', error);
     res.status(500).json({ error: 'Database connection error' });
