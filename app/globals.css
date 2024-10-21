@@ -158,10 +158,10 @@ h2 {
 }
 
 .cta-button {
-    flex: 1 1 auto; /* Allow buttons to grow and shrink */
-    font-size: fit-content;
+    white-space: nowrap; /* Prevents text from wrapping */
+    line-height: 4; /* Line height */
     background-color: #2C7DA0;
-    padding: 20px 50px 20px 50px;
+    padding: 20px 40px 20px 40px;
     color: #A9D6E5;
     text-decoration: none;
     font-size: 20;
@@ -170,6 +170,10 @@ h2 {
     margin-right: 2%;
     margin-bottom: 10px; /* Add margin to the bottom for wrapping */
     text-align: center;
+}
+.cta-button:hover {
+    background-color: #27708f; /* Darker green on hover */
+    transform: scale(1.5); /* Slightly scale up the button on hover */
 }
 
 

@@ -1,6 +1,4 @@
 import "../app/globals.css"
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { header, footer } from "../app/globals.tsx"
 
 const pageTitle =(
@@ -23,20 +21,18 @@ const body = (
         on certain ameneties so that the user can keep track of their
         transactions. JES also offers some tips with learning to control budgets.
       </p>
-      <ButtonGroup aria-label="Main Page">
-        <Button href="/budgets" variant="primary" className = "cta-button">
+        <a href="/budgets" className = "cta-button">
           Get Started
-        </Button>
-        <Button href="/AI" variant="primary" className = "cta-button">
+        </a>
+        <a href="/AI" className = "cta-button">
           Need Help?
-        </Button>
-        <Button href="/AI" variant="primary" className = "cta-button">
+        </a>
+        <a href="/AI" className = "cta-button">
           Meet the team
-        </Button>
-        <Button href="/AI" variant="primary" className = "cta-button">
+        </a>
+        <a href="/AI" className = "cta-button">
           Contact us
-        </Button>
-      </ButtonGroup>
+        </a>
     </article>
   </>
 );
