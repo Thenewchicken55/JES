@@ -68,13 +68,19 @@ export default function AI() {
         }, 1000); // Adjust the delay as needed
     };
 
+    const isEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+          processInput();
+        }
+      };
+
     return (
         <>
             {pageTitle}
             {header}
             <article id="main" className="content">
 
-                <input className="inputBox" type="text" id="userInput" placeholder="Enter your text here" value={userInput} onChange={handleInputChange}></input>
+                <input className="inputBox" type="text" id="userInput" placeholder="Enter your text here" value={userInput} onChange={handleInputChange} onSubmit={processInput} onKeyDown={isEnter}></input>
                 <button onClick={processInput} style={{ marginLeft: '10px'}}>Submit</button>
                 <GroqChat content={output}/>
             </article>
