@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "cookies": "^0.9.1",
     "groq-sdk": "^0.7.0",
     "mysql2": "^3.11.3",
     "next": "^14.2.13",
