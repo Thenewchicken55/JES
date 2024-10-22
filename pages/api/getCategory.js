@@ -4,7 +4,7 @@ import Cookies from 'cookies';
 
 export default async function getCategoryHandler(req, res) {
     if (req.method === 'POST') {
-      const { category } = req.body;
+      // const { category } = req.body;
       const cookies = new Cookies(req, res);
       const userId = cookies.get('user_id');
 
@@ -15,8 +15,8 @@ export default async function getCategoryHandler(req, res) {
       try {
         const connection = await connectToDatabase();
         const [results] = await connection.query(
-          'SELECT category, category_limit FROM Categories WHERE category = ?;',
-          [category]
+          'SELECT category, category_limit FROM Categories;'
+          // 'SELECT category, category_limit FROM Categories WHERE category = ?;', [category]
         );
   
         if (results.length > 0) {
