@@ -102,12 +102,6 @@ h2 {
     margin:20px 50px 0px 0px;
 }
 
-.nav-menu {
-    list-style-type:none;
-    list-style:none;
-    padding :0;
-}
-
 .nav-menu li {
     display:inline;
     margin-right:20px;
