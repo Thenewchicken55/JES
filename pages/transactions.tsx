@@ -10,10 +10,11 @@ const pageTitle =(
 
 const TransactionInput = () => {
     // State for amount and name
-    const [transactionAmount, setTransactionAmount] = useState("");
+    const [amount, setTransactionAmount] = useState("");
     const [transactionName, setTransactionName] = useState("");
-    const [categoryName, setCategoryName] = useState("");
+    const [category, setCategoryName] = useState("");
     const [description, setDescription] = useState("");
+    const [submitMessage, setSubmitMessage] = useState("");
   
     // Event handlers
     const handleTransactionAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,21 +23,40 @@ const TransactionInput = () => {
     const handleTransactionName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTransactionName(event.target.value);
     };
-    const handleCateogryName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCategoryName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCategoryName(event.target.value);
     };
     const handleDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value);
     };
 
-    // Log to web console
-    const handleSubmit = () => {
-        console.log("Transaction Amount:", transactionAmount);
+    const handleSubmit = async () => {
+        // Log to web console
+        console.log("Transaction Amount:", amount);
         console.log("Transaction Name:", transactionName);
-        console.log("Category Name:", categoryName);
+        console.log("Category Name:", category);
         console.log("Description:", description);
-      
-    // API calls to add category can be made here
+
+        try {
+            // Make the API request to the createTransaction endpoint
+            const response = await fetch('/api/createTransaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ category, amount, description }),
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                setSubmitMessage('Post Successful!');
+            } else {
+                setSubmitMessage('Post Failed: ' + data.message);
+            }
+        } catch (error) {
+            setSubmitMessage('Error logging in: ' + error);
+        }
     };
   
     return (
@@ -47,7 +67,7 @@ const TransactionInput = () => {
                 className="inputBudget"
                 name="transactionAmount"
                 placeholder="Enter transaction amount"
-                value={transactionAmount}
+                value={amount}
                 onChange={handleTransactionAmount}
             />
             <input
@@ -61,8 +81,8 @@ const TransactionInput = () => {
                 className="inputBudget"
                 name="categoryName"
                 placeholder="Enter category name"
-                value={categoryName}
-                onChange={handleCateogryName}
+                value={category}
+                onChange={handleCategoryName}
             />
             <input
                 className="inputBudget"
@@ -73,6 +93,7 @@ const TransactionInput = () => {
             />
             <button type="button" onClick={handleSubmit}>Submit</button>
             </div>
+            <p>{submitMessage}</p>
         </>
     );
 };
