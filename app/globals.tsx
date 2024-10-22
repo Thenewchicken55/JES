@@ -7,11 +7,11 @@ export const header = (
         <header id="header" className="site-header">
             <h1 className="site-title">JES - Financial Budgeting Tool</h1>
             <nav className="site-navigation">
-                <Link href="/" className="nav-button">Home</Link> {" "}
-                <Link href="/budgets" className="nav-button">Budgets</Link> {" "}
+                <Link href="/"             className="nav-button">Home        </Link> {" "}
+                <Link href="/budgets"      className="nav-button">Budgets     </Link> {" "}
                 <Link href="/transactions" className="nav-button">Transactions</Link> {" "}
-                <Link href="/AI" className="nav-button">AI</Link> {" "}
-                <Link href="/login" className="nav-button">Login </Link>
+                <Link href="/AI"           className="nav-button">AI          </Link> {" "}
+                <Link href="/login"        className="nav-button">Login       </Link>
             </nav>
         </header>
     </>
