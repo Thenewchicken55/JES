@@ -20,6 +20,9 @@ export const header = (
                 <li>
                     <Link href="/AI" className="nav-button">AI</Link>
                 </li>
+                <li>
+                    <a href="/login" className="nav-button">Login</a>
+                </li>
                 </ul>
             </nav>
         </header>
