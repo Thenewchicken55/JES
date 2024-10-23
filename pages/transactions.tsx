@@ -139,7 +139,6 @@ const TransactionTable = () => {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Category</th>
                 <th>Amount</th>
                 <th>Description</th>
@@ -149,7 +148,6 @@ const TransactionTable = () => {
             <tbody>
               {transactions.map((transaction) => (
                 <tr key={transaction.id}>
-                  <td>{transaction.id}</td>
                   <td>{transaction.category}</td>
                   <td>{transaction.amount}</td>
                   <td>{transaction.description}</td>
