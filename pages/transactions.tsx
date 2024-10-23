@@ -15,7 +15,7 @@ const TransactionInput = () => {
     const [category, setCategoryName] = useState("");
     const [description, setDescription] = useState("");
     const [submitMessage, setSubmitMessage] = useState("");
-  
+
     // Event handlers
     const handleTransactionAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTransactionAmount(event.target.value);
@@ -49,7 +49,7 @@ const TransactionInput = () => {
             });
 
             const data = await response.json();
-            
+
             if (response.ok) {
                 setSubmitMessage('Post Successful!');
             } else {
@@ -59,7 +59,7 @@ const TransactionInput = () => {
             setSubmitMessage('Error logging in: ' + error);
         }
     };
-  
+
     return (
         <>
             <h2>Add Categories</h2>
@@ -100,68 +100,75 @@ const TransactionInput = () => {
 };
 
 const TransactionTable = () => {
-    const [transactions, setTransactions] = useState([]);
-    const [error, setError] = useState("");
-  
-    useEffect(() => {
-      const fetchTransactions = async () => {
-        try {
+  const [transactions, setTransactions] = useState([]);
+  const [error, setError] = useState("");
+
+  const fetchTransactions = async () => {
+      try {
           const response = await fetch('/api/getTransactions', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
           });
-  
+
           const data = await response.json();
-  
+
           if (response.ok) {
-            setTransactions(data.transactions);
+              setTransactions(data.transactions);
           } else {
-            setError(data.message);
+              setError(data.message);
           }
-        } catch (err) {
+      } catch (err) {
           console.error('Failed to fetch transactions:', err);
           setError('Failed to fetch transactions');
-        }
-      };
-  
+      }
+  };
+
+  useEffect(() => {
+      // Fetch transactions initially
       fetchTransactions();
-    }, []);
-  
-    return (
+
+      // Set up polling to refresh transactions every 5 seconds
+      const intervalId = setInterval(fetchTransactions, 5000);
+
+      // Cleanup the interval on component unmount
+      return () => clearInterval(intervalId);
+  }, []);
+
+  return (
       <div>
-        <h1>Transaction Table</h1>
-  
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-  
-        {transactions.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Amount</th>
-                <th>Description</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((transaction) => (
-                <tr key={transaction.id}>
-                  <td>{transaction.category}</td>
-                  <td>{transaction.amount}</td>
-                  <td>{transaction.description}</td>
-                  <td>{new Date(transaction.date).toLocaleString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No transactions found.</p>
-        )}
+          <h1>Transaction Table</h1>
+
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+
+          {transactions.length > 0 ? (
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Category</th>
+                          <th>Amount</th>
+                          <th>Description</th>
+                          <th>Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {transactions.map((transaction) => (
+                          <tr key={transaction.id}>
+                              <td>{transaction.category}</td>
+                              <td>{transaction.amount}</td>
+                              <td>{transaction.description}</td>
+                              <td>{new Date(transaction.date).toLocaleString()}</td>
+                          </tr>
+                      ))}
+                  </tbody>
+              </table>
+          ) : (
+              <p>No transactions found.</p>
+          )}
       </div>
-    );
-  }
+  );
+};
 
 export default function Transactions() {
     return (
