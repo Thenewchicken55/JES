@@ -1,210 +1,195 @@
-import React, { use, useState, useEffect } from 'react';
-import { header, footer } from "../app/globals.tsx"
-import { Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell, getKeyValue} from "@nextui-org/table";
-import "../app/globals.css"
+import React, { use, useState, useEffect } from "react";
+import { header, footer } from "../app/globals.tsx";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableColumn,
+  TableRow,
+  TableCell,
+  getKeyValue,
+} from "@nextui-org/table";
+import "../app/globals.css";
 
-const pageTitle =(
-    <>
-        <title>Budgets</title>
-    </>
-)
-
-// Static test data for table
-const rows = [
-    { key: "1", category: "Gas", currentAmount: "100", maxAmount: "200" },
-    { key: "2", category: "Food", currentAmount: "200", maxAmount: "300"},
-];
-
-const columns = [
-    { key: "category", label: "Category", },
-    { key: "currentAmount", label: "Current Amount",},
-    { key: "maxAmount", label: "Max Amount", },
-];
+const pageTitle = (
+  <>
+    <title>Budgets</title>
+  </>
+);
 
 interface Category {
-    category : string;
-    category_limit : number;
-
+  category: string;
+  category_limit: number;
 }
 interface CategoryData {
-    message: string;
-    category: Category[];
+  message: string;
+  category: Category[];
 }
 
 const fetchCategoryData = async () => {
-    const response = await fetch('http://127.0.0.1:3000/api/getCategory', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${token}',
-      },
+  const response = await fetch("/api/getCategory", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer ${token}",
+    },
     //   body: JSON.stringify(),
     //   body: JSON.stringify(body),
-        // body: body ? JSON.stringify(body) : null, // Convert body to JSON if it exists
-    });
-  
-    if (response.ok) {
-        const data: CategoryData = await response.json();
-        console.log('Category Data:', data);
-        const message = data.message;
-        let categoryName: string | undefined;  // Declare outside for scope
-        let categoryLimit: number | undefined; 
-        let tuple = new Map();
-        let tuples: Array<Map<string, string | number>> = [];
-        data.category.forEach((categoryItem) => {
-            categoryName = categoryItem.category;
-            categoryLimit = categoryItem.category_limit;
-            console.log(`Category: ${categoryName}`);
-            console.log(`Category Limit: ${categoryLimit}`);
-            tuple.set('name', categoryName);
-            tuple.set('limit', categoryLimit);
-            tuples.push(tuple);
-  
+    // body: body ? JSON.stringify(body) : null, // Convert body to JSON if it exists
+  });
+
+  if (response.ok) {
+    const data: CategoryData = await response.json();
+    console.log("Category Data:", data);
+    const message = data.message;
+    let categoryName: string | undefined; // Declare outside for scope
+    let categoryLimit: number | undefined;
+    let tuple = new Map();
+    let tuples: Array<Map<string, string | number>> = [];
+    data.category.forEach((categoryItem) => {
+      categoryName = categoryItem.category;
+      categoryLimit = categoryItem.category_limit;
+      console.log(`Category: ${categoryName}`);
+      console.log(`Category Limit: ${categoryLimit}`);
+      tuple.set("name", categoryName);
+      tuple.set("limit", categoryLimit);
+      tuples.push(tuple);
     });
     return tuples;
     // result.get('name');
     // result.get('limit');
     //   return data;
-    } else {
-      console.error('Error fetching category data:', response.statusText);
-    }
+  } else {
+    console.error("Error fetching category data:", response.statusText);
+  }
 };
 
 const CategoryInput = () => {
-    // State for amount and name
-    const [categoryAmount, setCategoryAmount] = useState("");
-    const [categoryName, setCategoryName] = useState("");
-  
-    // Event handlers
-    const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setCategoryAmount(event.target.value);
-    };
+  // State for amount and name
+  const [categoryAmount, setCategoryAmount] = useState("");
+  const [categoryName, setCategoryName] = useState("");
 
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setCategoryName(event.target.value);
-    };
-  
-    // Log to web console
-    const handleSubmit = () => {
-      console.log("Category Amount:", categoryAmount);
-      console.log("Category Name:", categoryName);
-      
+  // Event handlers
+  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategoryAmount(event.target.value);
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategoryName(event.target.value);
+  };
+
+  // Log to web console
+  const handleSubmit = () => {
+    console.log("Category Amount:", categoryAmount);
+    console.log("Category Name:", categoryName);
+
     // API calls to add category can be made here
-    };
-  
-    return (
-        <>
-            <h2>Add Categories</h2>
-            <div>
-            <input
-                className="inputBudget"
-                name="categoryAmount"
-                placeholder="Enter category amount"
-                value={categoryAmount}
-                onChange={handleAmountChange}
-            />
-            <input
-                className="inputBudget"
-                name="categoryName"
-                placeholder="Enter category name"
-                value={categoryName}
-                onChange={handleNameChange}
-                />
-            <button type="button" onClick={handleSubmit}>Submit</button>
-            </div>
-        </>
-    );
+  };
+
+  return (
+    <>
+      <h2>Add Categories</h2>
+      <div>
+        <input
+          className="inputBudget"
+          name="categoryAmount"
+          placeholder="Enter category amount"
+          value={categoryAmount}
+          onChange={handleAmountChange}
+        />
+        <input
+          className="inputBudget"
+          name="categoryName"
+          placeholder="Enter category name"
+          value={categoryName}
+          onChange={handleNameChange}
+        />
+        <button type="button" onClick={handleSubmit}>
+          Submit
+        </button>
+      </div>
+    </>
+  );
 };
 
-const renderTable = () => (
+const renderTable = () => {
+  return (
     <>
-        <div>
-            <Table>
-                <TableHeader columns={columns}>
-                    {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-                </TableHeader>
-                <TableBody items={rows}>
-                    {(item) => (
-                    <TableRow key={item.key}>
-                        {(columnKey) => <TableCell className="table-cell-">{getKeyValue(item, columnKey)}</TableCell>}
-                    </TableRow>
-                    )}
-                </TableBody>
-            </Table>
-        </div>
+      <table>
+        {/* Add table content here */}
+      </table>
     </>
-);
+  );
+};
 
 export default function About() {
-    const [categoryDataArray, setCategoryData] = useState(new Map());
-    const [loading, setLoading] = useState(true); // Loading state
+  const [categoryDataArray, setCategoryData] = useState(new Map());
+  const [loading, setLoading] = useState(true); // Loading state
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await fetchCategoryData(); // Await the async function
-                console.log('Fetched Data:', result); // Log the fetched result
-                setCategoryData(result); // Set the state with the Map
-            } catch (error) {
-                console.error('Error fetching data:', error); // Log any errors
-            } finally {
-                setLoading(false); // Set loading to false after fetching
-            }
-        };
-        fetchData(); // Call the async function
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetchCategoryData(); // Await the async function
+        console.log("Fetched Data:", result); // Log the fetched result
+        setCategoryData(result); // Set the state with the Map
+      } catch (error) {
+        console.error("Error fetching data:", error); // Log any errors
+      } finally {
+        setLoading(false); // Set loading to false after fetching
+      }
+    };
+    fetchData(); // Call the async function
+  }, []);
 
-    return (
-        <>
-            <h2>Category Information</h2>
-            <ul>
-                {loading ? ( // Check loading state
-                    <li>Loading...</li>
-                ) : (
-                    categoryDataArray.length > 0 ? (
-                        categoryDataArray.map((categoryData, index) => (
-                            <li key=    {index}>
-                                {Array.from(categoryData).map(([key, value]) => (
-                                    <div key={key}>
-                                        <strong>{key}:</strong> {value}
-                                    </div>
-                                ))}
-                            </li>
-                        ))
-                    ) : (
-                        <li>No data found.</li> // Handle empty data
-                    )
-                )}
-            </ul>
-        </>
-    );
-    // return (
-    //     <>
-    //         <h2>Category Information</h2>
-    //         <ul>
-    //             {categoryDataArray.forEach(categoryData, index) => {
-    //                 loading ? ( // Check loading state
-    //                     <li>Loading...</li>
-    //                 ) : (
+  return (
+    <>
+      <h2>Category Information</h2>
+      <ul>
+        {loading ? ( // Check loading state
+          <li>Loading...</li>
+        ) : categoryDataArray.length > 0 ? (
+          categoryDataArray.map((categoryData, index) => (
+            <li key={index}>
+              {Array.from(categoryData).map(([key, value]) => (
+                <div key={key}>
+                  <strong>{key}:</strong> {value}
+                </div>
+              ))}
+            </li>
+          ))
+        ) : (
+          <li>No data found.</li> // Handle empty data
+        )}
+      </ul>
+    </>
+  );
+  // return (
+  //     <>
+  //         <h2>Category Information</h2>
+  //         <ul>
+  //             {categoryDataArray.forEach(categoryData, index) => {
+  //                 loading ? ( // Check loading state
+  //                     <li>Loading...</li>
+  //                 ) : (
 
-    //                     Array.from(categoryData).length > 0 ? (
-    //                         Array.from(categoryData).map(([key, value]) => (
-    //                             <li key={key}>
-    //                             <strong>{key}:</strong> {value}
-    //                             </li>
-    //                         ))
-    //                     ) : (
-    //                         <li>No data found.</li> // Handle empty data
-    //                     )
-    //                 )
-    //             }}
-    //         </ul>
-    //     </>
-    // );
+  //                     Array.from(categoryData).length > 0 ? (
+  //                         Array.from(categoryData).map(([key, value]) => (
+  //                             <li key={key}>
+  //                             <strong>{key}:</strong> {value}
+  //                             </li>
+  //                         ))
+  //                     ) : (
+  //                         <li>No data found.</li> // Handle empty data
+  //                     )
+  //                 )
+  //             }}
+  //         </ul>
+  //     </>
+  // );
 }
 
 // export default function About() {
-//     const [showTable, setShowTable] = useState(false);    
+//     const [showTable, setShowTable] = useState(false);
 //     const showTableHandler = () => {
 //       setShowTable(true);
 //     };
@@ -219,7 +204,7 @@ export default function About() {
 //                 {showTable && renderTable()}
 
 //                 <CategoryInput />
-                
+
 //                 <h2>Logged Budgets</h2>
 //                 <div className = "button-container">
 //                     <button>Budget 2</button>
