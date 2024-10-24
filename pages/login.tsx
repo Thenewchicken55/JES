@@ -18,6 +18,7 @@ export default function Login() {
     // Function to handle login
     const login = async () => {
         try {
+            setLoginMessage('');
             // Make the API request to the login endpoint
             const response = await fetch('/api/login', {
                 method: 'POST',

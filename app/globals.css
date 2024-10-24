@@ -13,6 +13,29 @@ html {
     margin: 0;
 }
 
+.inputBudget {
+    width: 45%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #A9D6E5;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+table {
+    border: 2px solid #A9D6E5;
+    padding: 10px;
+    margin-top: 30px;;
+    padding:0;
+    font-family:sans-serif;
+    font-size:16px;
+    height: 100%;
+    color: #A9D6E5
+}
+
 button {
     margin-top: 20px;
     background-color: #2A6F97; /* Green background */
