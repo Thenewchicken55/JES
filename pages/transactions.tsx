@@ -106,7 +106,15 @@ const TransactionInput = () => {
 };
 
 const TransactionTable = () => {
-  const [transactions, setTransactions] = useState([]);
+  interface Transaction {
+    id: string;
+    category: string;
+    amount: number;
+    description: string;
+    date: string;
+  }
+
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState("");
 
   const fetchTransactions = async () => {
