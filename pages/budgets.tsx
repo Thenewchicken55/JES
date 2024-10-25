@@ -11,6 +11,7 @@ const pageTitle = (
 );
 
 const fetchCategories = async () => {
+
   const response = await fetch("/api/getCategory", {
     method: "POST",
     headers: {
@@ -30,6 +31,7 @@ const CategoryInput = () => {
   // State for amount and name
   const [categoryAmount, setCategoryAmount] = useState("");
   const [categoryName, setCategoryName] = useState("");
+  const [submitMessage, setSubmitMessage] = useState("");
 
   // Event handlers
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,11 +43,32 @@ const CategoryInput = () => {
   };
 
   // Log to web console
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setSubmitMessage("");
     console.log("Category Amount:", categoryAmount);
     console.log("Category Name:", categoryName);
 
     // API calls to add category can be made here
+    try {
+      // Make the API request to the endpoint
+      const response = await fetch("/api/createCategory", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ category: categoryName, category_limit: categoryAmount }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage("Post Successful!");
+      } else {
+        setSubmitMessage("Post Failed: " + data.message);
+      }
+    } catch (error) {
+      setSubmitMessage("Error logging in: " + error);
+    }
   };
 
   return (
@@ -58,17 +81,20 @@ const CategoryInput = () => {
           placeholder="Enter category amount"
           value={categoryAmount}
           onChange={handleAmountChange}
-        />
+          style={{ width: '42%' }}
+          />
         <input
           className="inputBudget"
           name="categoryName"
           placeholder="Enter category name"
           value={categoryName}
           onChange={handleNameChange}
+          style={{ width: '42%' }}
         />
         <button type="button" onClick={handleSubmit}>
           Submit
         </button>
+      <p>{submitMessage}</p>
       </div>
     </>
   );
