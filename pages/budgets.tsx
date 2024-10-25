@@ -1,22 +1,8 @@
 import React, { use, useState, useEffect } from "react";
 import { header, footer } from "../app/globals.tsx";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableColumn,
-  TableRow,
-  TableCell,
-  getKeyValue,
-} from "@nextui-org/table";
 import "@/app/globals.css";
-import { NextUIProvider, Pagination } from '@nextui-org/react';
 import { useTheme } from "next-themes";
-import { SwitchProps, useSwitch } from "@nextui-org/switch";
 import "@/pages/table.css"; // Import the dark mode CSS
-import { nextui } from '@nextui-org/react';
-
-
 
 const pageTitle = (
   <>
@@ -106,47 +92,6 @@ const renderTable = () => {
     // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
-  const { theme, setTheme } = useTheme();
-  const onChange = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
-  };
-  const {
-    Component,
-    slots,
-    isSelected,
-    getBaseProps,
-    getInputProps,
-    getWrapperProps,
-  } = useSwitch({
-    isSelected: theme === "light",
-    onChange,
-  });
-
-  const tableStyles = {
-    width: '100%',
-    borderCollapse: 'collapse',
-  };
-
-  const thTdStyles = {
-    border: '1px solid #ffffff',
-    padding: '8px',
-    textAlign: 'left',
-  };
-
-  const thStyles = {
-    ...thTdStyles,
-    backgroundColor: '#333333',
-  };
-
-  const evenRowStyles = {
-    backgroundColor: '#2a2a2a',
-  };
-
-  const oddRowStyles = {
-    backgroundColor: '#1a1a1a',
-  };
-
-
 
   return (
       <table className="table-container" >
