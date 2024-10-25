@@ -9,7 +9,7 @@ import {
   TableCell,
   getKeyValue,
 } from "@nextui-org/table";
-import "../app/globals.css";
+import "@/app/globals.css";
 
 const pageTitle = (
   <>
@@ -17,48 +17,18 @@ const pageTitle = (
   </>
 );
 
-interface Category {
-  category: string;
-  category_limit: number;
-}
-interface CategoryData {
-  message: string;
-  category: Category[];
-}
-
-const fetchCategoryData = async () => {
+const fetchCategories = async () => {
   const response = await fetch("/api/getCategory", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer ${token}",
     },
-    //   body: JSON.stringify(),
-    //   body: JSON.stringify(body),
-    // body: body ? JSON.stringify(body) : null, // Convert body to JSON if it exists
   });
 
   if (response.ok) {
-    const data: CategoryData = await response.json();
-    console.log("Category Data:", data);
-    const message = data.message;
-    let categoryName: string | undefined; // Declare outside for scope
-    let categoryLimit: number | undefined;
-    let tuple = new Map();
-    let tuples: Array<Map<string, string | number>> = [];
-    data.category.forEach((categoryItem) => {
-      categoryName = categoryItem.category;
-      categoryLimit = categoryItem.category_limit;
-      console.log(`Category: ${categoryName}`);
-      console.log(`Category Limit: ${categoryLimit}`);
-      tuple.set("name", categoryName);
-      tuple.set("limit", categoryLimit);
-      tuples.push(tuple);
-    });
-    return tuples;
-    // result.get('name');
-    // result.get('limit');
-    //   return data;
+    const data = await response.json();
+    console.log("Budget Data:", data);
+    return data;
   } else {
     console.error("Error fetching category data:", response.statusText);
   }
@@ -113,16 +83,48 @@ const CategoryInput = () => {
 };
 
 const renderTable = () => {
+  const [budgets, setBudgets] = useState<any[]>([]);
+
+
+  useEffect(() =>  {
+    // Fetch transactions initially
+    const fetchData = async () => {
+      const data = await fetchCategories();
+      setBudgets(data.category);
+    };
+    fetchData();
+
+    // Set up polling to refresh transactions every 5 seconds
+    const intervalId = setInterval(fetchData, 5000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  console.log("broo Budgets:", budgets);
   return (
     <>
       <table>
-        {/* Add table content here */}
+          <thead>
+              <tr>
+                  <th>Category</th>
+                  <th>Limit</th>
+              </tr>
+          </thead>
+          <tbody>
+                {budgets.map((category, index) => (
+                  <tr key={index}>
+                    <td>{category.category}</td>
+                    <td>{category.category_limit}</td>
+                  </tr>
+                ))}
+          </tbody>
       </table>
     </>
   );
 };
 
-export default function About() {
+export default function Budgets() {
   const [categoryDataArray, setCategoryData] = useState(new Map());
   const [loading, setLoading] = useState(true); // Loading state
 
@@ -143,49 +145,33 @@ export default function About() {
 
   return (
     <>
-      <h2>Category Information</h2>
-      <ul>
-        {loading ? ( // Check loading state
-          <li>Loading...</li>
-        ) : categoryDataArray.length > 0 ? (
-          categoryDataArray.map((categoryData, index) => (
-            <li key={index}>
-              {Array.from(categoryData).map(([key, value]) => (
-                <div key={key}>
-                  <strong>{key}:</strong> {value}
-                </div>
-              ))}
-            </li>
-          ))
-        ) : (
-          <li>No data found.</li> // Handle empty data
-        )}
-      </ul>
+      {pageTitle}
+      {header}
+      {/* do 'npm install -g react-devtools'
+      this allows for better debugging using react-devtools
+      download extension https://react.dev/learn/react-developer-tools*/}
+      <script src="http://localhost:8097"></script>
+      <article id="main" className="content">
+        <h2>Current month</h2>
+        {/* <button>Update</button> */}
+        {renderTable()}
+
+        <CategoryInput />
+
+        {/* <h2>Logged Budgets</h2> */}
+        <div className="button-container">
+          {/* <button>Budget 2</button>
+          <button>Budget 3</button> */}
+        </div>
+      </article>
+
+      {/* older months
+      https://nextui.org/docs/components/accordion
+      */}
+
+      {footer}
     </>
   );
-  // return (
-  //     <>
-  //         <h2>Category Information</h2>
-  //         <ul>
-  //             {categoryDataArray.forEach(categoryData, index) => {
-  //                 loading ? ( // Check loading state
-  //                     <li>Loading...</li>
-  //                 ) : (
-
-  //                     Array.from(categoryData).length > 0 ? (
-  //                         Array.from(categoryData).map(([key, value]) => (
-  //                             <li key={key}>
-  //                             <strong>{key}:</strong> {value}
-  //                             </li>
-  //                         ))
-  //                     ) : (
-  //                         <li>No data found.</li> // Handle empty data
-  //                     )
-  //                 )
-  //             }}
-  //         </ul>
-  //     </>
-  // );
 }
 
 // export default function About() {
