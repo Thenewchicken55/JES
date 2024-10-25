@@ -27,7 +27,6 @@ const fetchCategories = async () => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log("Budget Data:", data);
     return data;
   } else {
     console.error("Error fetching category data:", response.statusText);
@@ -101,7 +100,6 @@ const renderTable = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  console.log("broo Budgets:", budgets);
   return (
     <>
       <table>
