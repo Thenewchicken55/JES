@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../app/globals.css";
 import { header, footer } from "../app/globals.tsx";
+import "@/pages/table.css";
 
 const pageTitle = (
   <>
@@ -75,13 +76,13 @@ const TransactionInput = () => {
           value={amount}
           onChange={handleTransactionAmount}
         />
-        <input
+        {/* <input
           className="inputBudget"
           name="categoryName"
           placeholder="Enter transaction name"
           value={transactionName}
           onChange={handleTransactionName}
-        />
+        /> */}
         <input
           className="inputBudget"
           name="categoryName"
@@ -116,8 +117,11 @@ const TransactionTable = () => {
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [transactionsPerPage] = useState(5);
 
   const fetchTransactions = async () => {
+    // Fetch transactions logic
     try {
       const response = await fetch("/api/getTransactions", {
         method: "POST",
@@ -140,49 +144,71 @@ const TransactionTable = () => {
   };
 
   useEffect(() => {
-    // Fetch transactions initially
     fetchTransactions();
-
-    // Set up polling to refresh transactions every 5 seconds
     const intervalId = setInterval(fetchTransactions, 5000);
-
-    // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
+
+  const indexOfLastTransaction = currentPage * transactionsPerPage;
+  const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
+  const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+  const totalPages = Math.ceil(transactions.length / transactionsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div>
       <h1>Transaction Table</h1>
-
       {error && <p style={{ color: "red" }}>{error}</p>}
-
       {transactions.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Description</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((transaction) => (
-              <tr key={transaction.id}>
-                <td>{transaction.category}</td>
-                <td>{transaction.amount}</td>
-                <td>{transaction.description}</td>
-                <td>{new Date(transaction.date).toLocaleString()}</td>
+        <>
+          <table className="table-container">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {currentTransactions.map((transaction) => (
+                <tr key={transaction.id}>
+                  <td>{transaction.category}</td>
+                  <td>{transaction.amount}</td>
+                  <td>{transaction.description}</td>
+                  <td>{new Date(transaction.date).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div>
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <span>{` Page ${currentPage} of ${totalPages} `}</span>
+            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+              Next
+            </button>
+          </div>
+        </>
       ) : (
         <p>No transactions found.</p>
       )}
     </div>
   );
 };
+
 
 export default function Transactions() {
   return (

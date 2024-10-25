@@ -2,7 +2,7 @@ import React, { use, useState, useEffect } from "react";
 import { header, footer } from "../app/globals.tsx";
 import "@/app/globals.css";
 import { useTheme } from "next-themes";
-import "@/pages/table.css"; // Import the dark mode CSS
+import "@/pages/table.css";
 
 const pageTitle = (
   <>
@@ -162,31 +162,3 @@ export default function Budgets() {
     </>
   );
 }
-
-// export default function About() {
-//     const [showTable, setShowTable] = useState(false);
-//     const showTableHandler = () => {
-//       setShowTable(true);
-//     };
-
-//     return (
-//         <>
-//             {pageTitle}
-//             {header}
-//             <article id="main" className="content">
-//                 <h2>Current month</h2>
-//                 <button onClick={showTableHandler}>Show/Update</button>
-//                 {showTable && renderTable()}
-
-//                 <CategoryInput />
-
-//                 <h2>Logged Budgets</h2>
-//                 <div className = "button-container">
-//                     <button>Budget 2</button>
-//                     <button>Budget 3</button>
-//                 </div>
-//             </article>
-
-//             {footer}
-//         </>
-//     );

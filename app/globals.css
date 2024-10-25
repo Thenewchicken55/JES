@@ -18,7 +18,7 @@ html {
 }
 
 .inputBudget {
-    width: 45%;
+    width: 25%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -95,6 +95,10 @@ h1, h2, h3 {
   color: #A9D6E5; /* Set the desired color */
 }
 
+span {
+    color: #A9D6E5;
+}
+
 .inputBox {
     width: 100%;
     padding: 12px 20px;
@@ -160,10 +164,9 @@ h2 {
 
 .content {
     max-width: 60%;
-    padding: 30px;
-    margin: 50px 0px 50px 0px;
+    padding: 0px;
+    margin: 20px 0px 20px 0px;
     font-size: 18px;
-    color: #012A4A;
 }
 
 .content p {
@@ -211,8 +214,7 @@ footer {
     bottom: 0;
     width: 100%;
     background-color: #012A4A;
-    width: 100%;
-    padding: 20px;
+    padding: 0px;
     overflow: auto;
     color: #A9D6E5;
 }
