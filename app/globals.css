@@ -1,4 +1,8 @@
-/* color pallete:https://coolors.co/palette/012a4a-013a63-01497c-014f86-2a6f97-2c7da0-468faf-61a5c2-89c2d9-a9d6e5 */
+/* color pallete:https://coolors.co/palette/012a4a-013a63-01497c-014f86-2a6f97-2c7da0-468faf-61a5c2-89c2d9-a9d6e5*/
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
 
 body {
     margin:0;
@@ -28,12 +32,12 @@ html {
 table {
     border: 2px solid #A9D6E5;
     padding: 10px;
-    margin-top: 30px;;
+    margin-top: 30px;
     padding:0;
     font-family:sans-serif;
     font-size:16px;
     height: 100%;
-    color: #A9D6E5
+    color: #A9D6E5;
 }
 
 button {
@@ -60,8 +64,8 @@ button:active {
 }
 
 h1, h2, h3 {
-    font-family:Georgia, Times, serif;
-    color:#A9D6E5
+    font-family: Georgia, Times, serif;
+    color: #A9D6E5;
 }
 
 /* Popup Styles */
@@ -103,31 +107,30 @@ h1, h2, h3 {
 }
 
 h2 {
-    font-size:xx-large;
+    font-size: xx-large;
 }
 
 .site-header {
-    background-color:#012A4A;
-    width:100%;
-    padding:20px;
+    background-color: #012A4A;
+    width: 100%;
+    padding: 20px;
     overflow: auto;
-    color:#A9D6E5;
-    }
-
+    color: #A9D6E5;
+}
 
 .site-title {
-    float:left;
+    float: left;
 }
 
 .site-navigation {
-    float:right;
-    text-align:right;
-    margin:20px 50px 0px 0px;
+    float: right;
+    text-align: right;
+    margin: 20px 50px 0px 0px;
 }
 
 .nav-menu li {
-    display:inline;
-    margin-right:20px;
+    display: inline;
+    margin-right: 20px;
 }
 
 .nav-button {
@@ -146,26 +149,26 @@ h2 {
     color: #A9D6E5;
 }
 
-.site-header:after{
-    clear:both;
+.site-header:after {
+    clear: both;
 }
 
 #main {
-    margin:0 auto;
-    background-color:#012A4A;
+    margin: 0 auto;
+    background-color: #012A4A;
 }
 
 .content {
-    max-width:60%;
-    padding:30px;
-    margin:50px 0px 50px 0px;
-    font-size:18px;
-    color:#012A4A
+    max-width: 60%;
+    padding: 30px;
+    margin: 50px 0px 50px 0px;
+    font-size: 18px;
+    color: #012A4A;
 }
 
 .content p {
-    margin:50px 20px 50px 20px;
-    color:#A9D6E5
+    margin: 50px 20px 50px 20px;
+    color: #A9D6E5;
 }
 
 .button-container {
@@ -182,17 +185,17 @@ h2 {
     color: #A9D6E5;
     text-decoration: none;
     font-size: 20;
-    border:2px solid #2A6F97;
-    border-radius:18px;
+    border: 2px solid #2A6F97;
+    border-radius: 18px;
     margin-right: 2%;
     margin-bottom: 10px; /* Add margin to the bottom for wrapping */
     text-align: center;
 }
+
 .cta-button:hover {
     background-color: #27708f; /* Darker green on hover */
     transform: scale(1.5); /* Slightly scale up the button on hover */
 }
-
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
@@ -202,15 +205,14 @@ h2 {
     }
 }
 
-
 footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color:#012A4A;
-    width:100%;
-    padding:20px;
+    background-color: #012A4A;
+    width: 100%;
+    padding: 20px;
     overflow: auto;
-    color:#A9D6E5;
+    color: #A9D6E5;
 }

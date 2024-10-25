@@ -1,0 +1,29 @@
+.table-container {
+    background-color: #012a4a; /* Dark background for the entire table */
+    color: #A9D6E5; /* White text color */
+    border-radius: 18px; /* Rounded corners */
+    overflow: hidden; /* Ensures the rounded corners contain all content */
+}
+
+table {
+    width: 100%; /* Full width of its container */
+    border-collapse: collapse; /* Removes space between borders */
+  }
+
+  th {
+    text-align: left; /* Aligns header text to the left */
+    background-color: #022138; /* Darker background for header */
+    padding: 12px; /* Padding inside header cells */
+  }
+
+  td {
+    padding: 12px; /* Padding inside data cells */
+  }
+
+  tr:nth-child(even) {
+    background-color: #2A6F97; /* Alternating row colors for even rows */
+  }
+
+  tr:nth-child(odd) {
+    background-color: #013A63; /* Alternating row colors for odd rows */
+  }
