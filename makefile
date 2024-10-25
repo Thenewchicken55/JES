@@ -2,7 +2,7 @@ init:
 	npm install next@latest react@latest react-dom@latest 
 
 build:
-	npm run build
+	sudo npm run build
 
 run:
 	npm run dev
