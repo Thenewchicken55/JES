@@ -1,17 +1,9 @@
-import React, { use, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { header, footer } from "../app/globals.tsx";
 import "@/app/globals.css";
-import { useTheme } from "next-themes";
 import "@/pages/table.css";
 
-const pageTitle = (
-  <>
-    <title>Budgets</title>
-  </>
-);
-
 const fetchCategories = async () => {
-
   const response = await fetch("/api/getCategory", {
     method: "POST",
     headers: {
@@ -32,7 +24,7 @@ const CategoryInput = () => {
   const [categoryAmount, setCategoryAmount] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
-
+  const budget_id : number = 1;
   // Event handlers
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategoryAmount(event.target.value);
@@ -42,8 +34,8 @@ const CategoryInput = () => {
     setCategoryName(event.target.value);
   };
 
-  // Log to web console
-  const handleSubmit = async () => {
+  // record the category and amount to the database
+  const enterCategory = async () => {
     setSubmitMessage("");
     console.log("Category Amount:", categoryAmount);
     console.log("Category Name:", categoryName);
@@ -56,15 +48,16 @@ const CategoryInput = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ category: categoryName, category_limit: categoryAmount }),
+        body: JSON.stringify({ category: categoryName, budget_id, category_limit: categoryAmount }),
       });
 
       const data = await response.json();
-
+      console.log("Data:", data);
       if (response.ok) {
         setSubmitMessage("Post Successful!");
       } else {
-        setSubmitMessage("Post Failed: " + data.message);
+        setSubmitMessage("Post Failed: " + data.message + " " + data.error);
+        console.log("ERROR with createCategory" + data.message);
       }
     } catch (error) {
       setSubmitMessage("Error logging in: " + error);
@@ -91,7 +84,7 @@ const CategoryInput = () => {
           onChange={handleNameChange}
           style={{ width: '42%' }}
         />
-        <button type="button" onClick={handleSubmit}>
+        <button type="button" onClick={enterCategory}>
           Submit
         </button>
       <p>{submitMessage}</p>
@@ -160,7 +153,7 @@ export default function Budgets() {
 
   return (
     <>
-      {pageTitle}
+      <title>Budgets</title>
       {header}
       {/* do 'npm install -g react-devtools'
       this allows for better debugging using react-devtools

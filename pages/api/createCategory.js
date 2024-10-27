@@ -1,4 +1,5 @@
 // pages/api/createCategory.js
+import { stringify } from 'querystring';
 import { connectToDatabase } from './db.js';
 import Cookies from 'cookies';
 
@@ -15,7 +16,7 @@ export default async function createCategoryHandler(req, res) {
       try {
         const connection = await connectToDatabase();
         const [results] = await connection.query(
-          'INSERT INTO Category(category, budget_id, category_limit) VALUES ?, ?, ?;',
+          'INSERT INTO Categories(category, budget_id, category_limit) VALUES (?, ?, ?);',
           [category, budget_id, category_limit]
         );
   
@@ -30,7 +31,7 @@ export default async function createCategoryHandler(req, res) {
         await connection.end(); // Close the connection
       } catch (error) {
         console.error('Database connection error:', error);
-        res.status(500).json({ error: 'Database connection error' });
+        res.status(500).json({ error: 'Database connection error' + error });
       }
     } else {
       // Only allow POST method
