@@ -93,15 +93,33 @@ const CategoryInput = () => {
   );
 };
 
-const renderTable = () => {
+const renderBudget = (month : number = 1) => {
   const [budgets, setBudgets] = useState<any[]>([]);
 
-
   useEffect(() =>  {
+    const fetchBudgets = () =>
+    {
+      fetch("/api/getBudgets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ month }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        setBudgets(data.budget);
+      })
+      .catch((error) => {
+        console.error("Error fetching budget data:", error);
+      });
+    }
+
     // Fetch transactions initially
     const fetchData = async () => {
-      const data = await fetchCategories();
-      setBudgets(data.category);
+      const data = await fetchBudgets();
+      console.log("Data:", data);
+      // setBudgets(data.month);
     };
     fetchData();
 
@@ -122,6 +140,44 @@ const renderTable = () => {
         </thead>
         <tbody>
               {budgets.map((category, index) => (
+                <tr key={index}>
+                  <td>{category.category}</td>
+                  <td>{category.category_limit}</td>
+                </tr>
+              ))}
+          </tbody>
+      </table>
+  );
+};
+
+const renderTable = () => {
+  const [categories, setCategories] = useState<any[]>([]);
+
+  useEffect(() =>  {
+    // Fetch transactions initially
+    const fetchData = async () => {
+      const data = await fetchCategories();
+      setCategories(data.category);
+    };
+    fetchData();
+
+    // Set up polling to refresh transactions every 5 seconds
+    const intervalId = setInterval(fetchData, 5000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return (
+      <table className="table-container" >
+        <thead>
+          <tr>
+          <th style={{ padding: '8px', textAlign: 'left'}}> Category</th>
+          <th style={{padding: '8px', textAlign: 'left'}}> Limit</th>
+          </tr>
+        </thead>
+        <tbody>
+              {categories.map((category, index) => (
                 <tr key={index}>
                   <td>{category.category}</td>
                   <td>{category.category_limit}</td>
@@ -161,8 +217,10 @@ export default function Budgets() {
       <script src="http://localhost:8097"></script>
       <article id="main" className="content">
         <h2>Current month</h2>
-        {/* <button>Update</button> */}
-        {renderTable()}
+        <>
+          {/* {renderBudget()} */}
+        </>
+          {renderTable()}
 
         <CategoryInput />
 
