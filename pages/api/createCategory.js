@@ -20,7 +20,7 @@ export default async function createCategoryHandler(req, res) {
           [category, budget_id, category_limit]
         );
   
-        if (results.length > 0) {
+        if (results.affectedRows > 0) {
           // If category creation succeeds
           res.status(200).json({ message: 'Category Creation Successful' });
         } else {
