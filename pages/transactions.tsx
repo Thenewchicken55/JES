@@ -67,7 +67,7 @@ const TransactionInput = () => {
 
   return (
     <>
-      <h2>Add Categories</h2>
+      <h2>Transactions</h2>
       <div>
         <input
           className="inputBudget"
