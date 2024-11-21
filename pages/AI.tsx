@@ -18,26 +18,40 @@ const groq = new Groq({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
 interface GroqChatProps {
   content: string;
+  transactions: any[];
 }
 
-export const GroqChat: React.FC<GroqChatProps> = ({ content }) => {
+export const GroqChat: React.FC<GroqChatProps> = ({ content, transactions }) => {
   const [chatCompletion, setChatCompletion] = useState("");
 
   useEffect(() => {
     const fetchChatCompletion = async () => {
-      const completion = await getGroqChatCompletion(content);
-      setChatCompletion(completion.choices[0]?.message?.content || "");
+      if (content.trim() !== "") {
+        const completion = await getGroqChatCompletion(content, transactions);
+        setChatCompletion(completion.choices[0]?.message?.content || "");
+      }
     };
 
     fetchChatCompletion();
-  }, [content]);
+  }, [content, transactions]);
 
-  const getGroqChatCompletion = async (content: string) => {
+  const formatTransactions = (transactions: any[]) => {
+    return transactions.map((transaction) => {
+      return `Amount: ${transaction.amount}, Category: ${transaction.category}`;
+    }).join("; ");
+  }
+
+  const getGroqChatCompletion = async (content: string, transactions: any[]) => {
+    const formattedTransactions = formatTransactions(transactions);
     return groq.chat.completions.create({
       messages: [
         {
+          role: "system",
+          content: "You are a helpful assistant. You are a financial advisor that provides helpful tips. Keep your answer short and concise.",
+        },
+        {
           role: "user",
-          content: "Don't use markdown syntax:\n" + content,
+          content: `Don't use markdown syntax:\n${content}\nTransactions: ${formattedTransactions}`,
         },
       ],
       model: "llama-3.1-70b-versatile",
@@ -46,6 +60,22 @@ export const GroqChat: React.FC<GroqChatProps> = ({ content }) => {
 
   return <p>{chatCompletion}</p>;
 };
+
+const fetchTransactions = async () => {
+  const response = await fetch("/api/getTransactions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data.transactions;
+  } else {
+    console.error("Error fetching transaction data:", response.statusText);
+  }
+}
 
 const pageTitle = (
   <>
@@ -56,6 +86,16 @@ const pageTitle = (
 export default function AI() {
   const [userInput, setUserInput] = useState("");
   const [output, setOutput] = useState("");
+  const [transactions, setTransactions] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchAndSetTransactions = async () => {
+      const transactionsData = await fetchTransactions();
+      setTransactions(transactionsData);
+    };
+
+    fetchAndSetTransactions();
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(event.target.value);
@@ -93,7 +133,7 @@ export default function AI() {
         <button onClick={processInput} style={{ marginLeft: "10px" }}>
           Submit
         </button>
-        <GroqChat content={output} />
+        <GroqChat content={output} transactions={transactions}/>
       </article>
       {footer}
     </>
