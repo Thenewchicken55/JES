@@ -102,11 +102,7 @@ export default function AI() {
   };
 
   const processInput = () => {
-    setOutput("Loading...");
-    setTimeout(() => {
-      setOutput("Loading...");
-      setOutput(userInput);
-    }, 1000); // Adjust the delay as needed
+    setOutput(userInput);
   };
 
   const isEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
