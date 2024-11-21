@@ -196,7 +196,6 @@ export default function Budgets() {
     const fetchData = async () => {
       try {
         const result = await fetchCategories(); // Await the async function
-        console.log("Fetched Data:", result); // Log the fetched result
         setCategoryData(result); // Set the state with the Map
       } catch (error) {
         console.error("Error fetching data:", error); // Log any errors
