@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { header, footer } from "../app/globals.tsx";
+import { categorySum } from "./_API_Methods.tsx"
 import "@/app/globals.css";
 import "@/pages/table.css";
 
@@ -152,39 +153,51 @@ const renderBudget = (month : number = 1) => {
 
 const renderTable = () => {
   const [categories, setCategories] = useState<any[]>([]);
+  const [categorySums, setCategorySums] = useState<{ [key: string]: number }>({});
 
-  useEffect(() =>  {
-    // Fetch transactions initially
+  useEffect(() => {
     const fetchData = async () => {
       const data = await fetchCategories();
       setCategories(data.category);
+
+      const sums: { [key: string]: number } = {};
+      for (const category of data.category) {
+        const sum = await categorySum(category.category);
+        console.log("Getting sum for category:", category, "Sum:", sum);
+        sums[category.category] = sum !== null ? sum : 0;
+      }
+      setCategorySums(sums);
     };
     fetchData();
 
-    // Set up polling to refresh transactions every 5 seconds
-    const intervalId = setInterval(fetchData, 5000);
+    // const intervalId = setInterval(fetchData, 5000);
 
-    // Cleanup the interval on component unmount
-    return () => clearInterval(intervalId);
+    // return () => clearInterval(intervalId);
+    return () => {};
   }, []);
 
   return (
-      <table className="table-container" >
-        <thead>
-          <tr>
-          <th style={{ padding: '8px', textAlign: 'left'}}> Category</th>
-          <th style={{padding: '8px', textAlign: 'left'}}> Limit</th>
-          </tr>
-        </thead>
-        <tbody>
-              {categories.map((category, index) => (
-                <tr key={index}>
-                  <td>{category.category}</td>
-                  <td>{category.category_limit}</td>
-                </tr>
-              ))}
-          </tbody>
-      </table>
+    <table className="table-container">
+      <thead>
+        <tr>
+          <th style={{ padding: '8px', textAlign: 'left' }}>Category</th>
+          <th style={{ padding: '8px', textAlign: 'left' }}>Limit</th>
+          <th style={{ padding: '8px', textAlign: 'left' }}>Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+        {categories.map((category, index) => (
+          <tr key={index}>
+            <td>{category.category}</td>
+            <td>{category.category_limit}</td>
+            <td>
+              {(category.category_limit - (categorySums[category.category] || 0)) < 0
+                ? `Exceeded by ${Math.abs(category.category_limit - (categorySums[category.category] || 0)).toFixed(2)}`
+                : (category.category_limit - (categorySums[category.category] || 0)).toFixed(2)}
+            </td>
+          </tr>))}
+      </tbody>
+    </table>
   );
 };
 
@@ -196,7 +209,6 @@ export default function Budgets() {
     const fetchData = async () => {
       try {
         const result = await fetchCategories(); // Await the async function
-        console.log("Fetched Data:", result); // Log the fetched result
         setCategoryData(result); // Set the state with the Map
       } catch (error) {
         console.error("Error fetching data:", error); // Log any errors
@@ -211,30 +223,13 @@ export default function Budgets() {
     <>
       <title>Budgets</title>
       {header}
-      {/* do 'npm install -g react-devtools'
-      this allows for better debugging using react-devtools
-      download extension https://react.dev/learn/react-developer-tools*/}
-      <script src="http://localhost:8097"></script>
       <article id="main" className="content">
         <h2>Current month</h2>
-        <>
-          {/* {renderBudget()} */}
-        </>
-          {renderTable()}
+
+        {renderTable()}
 
         <CategoryInput />
-
-        {/* <h2>Logged Budgets</h2> */}
-        <div className="button-container">
-          {/* <button>Budget 2</button>
-          <button>Budget 3</button> */}
-        </div>
       </article>
-
-      {/* older months
-      https://nextui.org/docs/components/accordion
-      */}
-
       {footer}
     </>
   );
