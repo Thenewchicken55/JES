@@ -15,7 +15,6 @@ export default function Articles() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchArticles();
-    //   console.log("Data:", data);
       if (data) {
         setArticles(data.category);
       }
