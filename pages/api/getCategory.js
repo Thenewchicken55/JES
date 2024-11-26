@@ -7,7 +7,7 @@ export default async function getCategoryHandler(req, res) {
       // const { category } = req.body;
       const cookies = new Cookies(req, res);
       const userId = cookies.get('user_id');
-
+      console.log('userId:', userId);
       if (!userId) {
         return res.status(401).json({ message: 'User not authenticated' });
       }
@@ -15,8 +15,10 @@ export default async function getCategoryHandler(req, res) {
       try {
         const connection = await connectToDatabase();
         const [results] = await connection.query(
-          'SELECT category, category_limit FROM Categories;'
-          // 'SELECT category, category_limit FROM Categories WHERE category = ?;', [category]
+          `SELECT c.category, c.category_limit 
+           FROM Categories c
+           JOIN Budgets b ON c.budget_id = b.budget_id
+           WHERE b.user_id = ?`, [userId]
         );
   
         if (results.length > 0) {
