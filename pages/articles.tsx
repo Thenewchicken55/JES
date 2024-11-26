@@ -38,7 +38,7 @@ export default function Articles() {
             </div>
           ))
         ) : (
-          <p>No articles found</p>
+          <p>Trying really hard...</p>
         )}
       </div>
       {footer}
