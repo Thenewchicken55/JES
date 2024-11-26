@@ -4,21 +4,30 @@ import { categorySum } from "../lib/_API_Methods.tsx";
 import "@/app/globals.css";
 import "@/pages/table.css";
 
-const fetchCategories = async () => {
-  const response = await fetch("/api/getCategory", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+async function fetchCategories() {
+  try {
+    const response = await fetch('/api/getCategory', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (response.ok) {
     const data = await response.json();
-    return data;
-  } else {
-    console.error("Error fetching category data:", response.statusText);
+    console.log('API Response:', data); // Log the response to inspect it
+
+    if (response.ok && data.category) {
+      return data;
+    } else {
+      console.error('Error fetching category data:', data.message || 'Unknown error');
+      return { category: [] }; // Return an empty array if there's an error or no categories found
+    }
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return { category: [] }; // Return an empty array if there's a fetch error
   }
-};
+}
+
 
 const CategoryInput = () => {
   // State for amount and name
@@ -38,8 +47,15 @@ const CategoryInput = () => {
   // record the category and amount to the database
   const enterCategory = async () => {
     setSubmitMessage("");
-    console.log("Category Amount:", categoryAmount);
-    console.log("Category Name:", categoryName);
+
+    const getCurrentMonth = () => {
+      const date = new Date();
+      const month = date.getMonth() + 1; // getMonth() returns month index starting from 0 (January) to 11 (December)
+      const year = date.getFullYear();
+      return `${year}-${month < 10 ? '0' : ''}${month}-01`; // Format as YYYY-MM
+    };
+
+    console.log("Category Name:", categoryName, "Category Amount:", categoryAmount, "Month:", getCurrentMonth());
 
     // API calls to add category can be made here
     try {
@@ -49,11 +65,7 @@ const CategoryInput = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          category: categoryName,
-          budget_id,
-          category_limit: categoryAmount,
-        }),
+        body: JSON.stringify({ category: categoryName, category_limit: categoryAmount, month: getCurrentMonth() }),
       });
 
       const data = await response.json();
