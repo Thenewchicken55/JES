@@ -71,24 +71,17 @@ const TransactionInput = () => {
       <div>
         <input
           className="inputBudget"
-          name="transactionAmount"
-          placeholder="Enter transaction amount"
-          value={amount}
-          onChange={handleTransactionAmount}
-        />
-        {/* <input
-          className="inputBudget"
-          name="categoryName"
-          placeholder="Enter transaction name"
-          value={transactionName}
-          onChange={handleTransactionName}
-        /> */}
-        <input
-          className="inputBudget"
           name="categoryName"
           placeholder="Enter category name"
           value={category}
           onChange={handleCategoryName}
+        />
+        <input
+          className="inputBudget"
+          name="transactionAmount"
+          placeholder="Enter transaction amount"
+          value={amount}
+          onChange={handleTransactionAmount}
         />
         <input
           className="inputBudget"

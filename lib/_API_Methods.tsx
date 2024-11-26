@@ -1,5 +1,30 @@
 // Abstraction layer from the API functionality to the pages
 
+export const fetchArticles = async () => {
+    try {
+        const response = await fetch("/api/getArticles", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}), // You can add any necessary payload here if needed
+        });
+
+        console.log("Response:", response);
+
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else {
+            console.error("Error fetching article data:", response.statusText);
+            return null; // Return null or an empty array to handle the error case
+        }
+    } catch (error) {
+        console.error("Error fetching article data:", error);
+        return null; // Return null or an empty array to handle the error case
+    }
+};
+
 export const getCategoryTransactions = async (category: string) => {
     try {
         const response = await fetch("/api/getTransactionsFromCategory", {

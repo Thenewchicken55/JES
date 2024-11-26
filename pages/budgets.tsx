@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { header, footer } from "../app/globals.tsx";
-import { categorySum } from "./_API_Methods.tsx"
+import { categorySum } from "../lib/_API_Methods.tsx";
 import "@/app/globals.css";
 import "@/pages/table.css";
 
@@ -34,7 +34,7 @@ const CategoryInput = () => {
   const [categoryAmount, setCategoryAmount] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
-  const budget_id : number = 1;
+  const budget_id: number = 1;
   // Event handlers
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategoryAmount(event.target.value);
@@ -66,7 +66,6 @@ const CategoryInput = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ category: categoryName, category_limit: categoryAmount, month: getCurrentMonth() }),
-        // body: JSON.stringify({ category: categoryName, budget_id, category_limit: categoryAmount }),
       });
 
       const data = await response.json();
@@ -92,31 +91,30 @@ const CategoryInput = () => {
           placeholder="Enter category amount"
           value={categoryAmount}
           onChange={handleAmountChange}
-          style={{ width: '42%' }}
-          />
+          style={{ width: "42%" }}
+        />
         <input
           className="inputBudget"
           name="categoryName"
           placeholder="Enter category name"
           value={categoryName}
           onChange={handleNameChange}
-          style={{ width: '42%' }}
+          style={{ width: "42%" }}
         />
         <button type="button" onClick={enterCategory}>
           Submit
         </button>
-      <p>{submitMessage}</p>
+        <p>{submitMessage}</p>
       </div>
     </>
   );
 };
 
-const renderBudget = (month : number = 1) => {
+const renderBudget = (month: number = 1) => {
   const [budgets, setBudgets] = useState<any[]>([]);
 
-  useEffect(() =>  {
-    const fetchBudgets = () =>
-    {
+  useEffect(() => {
+    const fetchBudgets = () => {
       fetch("/api/getBudgets", {
         method: "POST",
         headers: {
@@ -124,14 +122,14 @@ const renderBudget = (month : number = 1) => {
         },
         body: JSON.stringify({ month }),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        setBudgets(data.budget);
-      })
-      .catch((error) => {
-        console.error("Error fetching budget data:", error);
-      });
-    }
+        .then((response) => response.json())
+        .then((data) => {
+          setBudgets(data.budget);
+        })
+        .catch((error) => {
+          console.error("Error fetching budget data:", error);
+        });
+    };
 
     // Fetch transactions initially
     const fetchData = async () => {
@@ -149,28 +147,30 @@ const renderBudget = (month : number = 1) => {
   }, []);
 
   return (
-      <table className="table-container" >
-        <thead>
-          <tr>
-          <th style={{ padding: '8px', textAlign: 'left'}}> Category</th>
-          <th style={{padding: '8px', textAlign: 'left'}}> Limit</th>
+    <table className="table-container">
+      <thead>
+        <tr>
+          <th style={{ padding: "8px", textAlign: "left" }}> Category</th>
+          <th style={{ padding: "8px", textAlign: "left" }}> Limit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {budgets.map((category, index) => (
+          <tr key={index}>
+            <td>{category.category}</td>
+            <td>{category.category_limit}</td>
           </tr>
-        </thead>
-        <tbody>
-              {budgets.map((category, index) => (
-                <tr key={index}>
-                  <td>{category.category}</td>
-                  <td>{category.category_limit}</td>
-                </tr>
-              ))}
-          </tbody>
-      </table>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
 const renderTable = () => {
   const [categories, setCategories] = useState<any[]>([]);
-  const [categorySums, setCategorySums] = useState<{ [key: string]: number }>({});
+  const [categorySums, setCategorySums] = useState<{ [key: string]: number }>(
+    {}
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -197,9 +197,9 @@ const renderTable = () => {
     <table className="table-container">
       <thead>
         <tr>
-          <th style={{ padding: '8px', textAlign: 'left' }}>Category</th>
-          <th style={{ padding: '8px', textAlign: 'left' }}>Limit</th>
-          <th style={{ padding: '8px', textAlign: 'left' }}>Remaining</th>
+          <th style={{ padding: "8px", textAlign: "left" }}>Category</th>
+          <th style={{ padding: "8px", textAlign: "left" }}>Limit</th>
+          <th style={{ padding: "8px", textAlign: "left" }}>Remaining</th>
         </tr>
       </thead>
       <tbody>
@@ -208,11 +208,20 @@ const renderTable = () => {
             <td>{category.category}</td>
             <td>{category.category_limit}</td>
             <td>
-              {(category.category_limit - (categorySums[category.category] || 0)) < 0
-                ? `Exceeded by ${Math.abs(category.category_limit - (categorySums[category.category] || 0)).toFixed(2)}`
-                : (category.category_limit - (categorySums[category.category] || 0)).toFixed(2)}
+              {category.category_limit -
+                (categorySums[category.category] || 0) <
+              0
+                ? `Exceeded by ${Math.abs(
+                    category.category_limit -
+                      (categorySums[category.category] || 0)
+                  ).toFixed(2)}`
+                : (
+                    category.category_limit -
+                    (categorySums[category.category] || 0)
+                  ).toFixed(2)}
             </td>
-          </tr>))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );

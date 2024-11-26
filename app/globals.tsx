@@ -11,6 +11,7 @@ export const header = (
                 <Link href="/budgets"      className="nav-button">Budgets</Link> {" "}
                 <Link href="/transactions" className="nav-button">Transactions</Link> {" "}
                 <Link href="/AI"           className="nav-button">AI</Link> {" "}
+                <Link href="/articles"           className="nav-button">Articles</Link> {" "}
                 <Link href="/login"        className="nav-button">Login</Link>
             </nav>
         </header>
