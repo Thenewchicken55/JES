@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { header, footer } from "../app/globals.tsx";
-import { fetchArticles } from "./_API_Methods.tsx";
+import { fetchArticles } from "../lib/_API_Methods.tsx";
 import "@/app/globals.css";
 
 export default function Articles() {
