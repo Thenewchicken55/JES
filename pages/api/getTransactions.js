@@ -4,35 +4,35 @@ import Cookies from 'cookies';
 
 export default async function getTransactionHandler(req, res) {
     if (req.method === 'POST') {
-      const cookies = new Cookies(req, res);
-      const userId = cookies.get('user_id');
+    const cookies = new Cookies(req, res);
+    const userId = cookies.get('user_id');
 
-      if (!userId) {
+    if (!userId) {
         return res.status(401).json({ message: 'User not authenticated' });
-      }
-  
-      try {
+    }
+
+    try {
         const connection = await connectToDatabase();
         const [results] = await connection.query(
-          'SELECT * FROM Transactions WHERE user_id = ? ORDER BY date DESC;',
-          [userId]
+        'SELECT * FROM Transactions WHERE user_id = ? ORDER BY date DESC;',
+        [userId]
         );
-  
+
         if (results.length > 0) {
-          // Return the category details
-          res.status(200).json({ message: 'Retrieval Successful', transactions: results });
+        // Return the category details
+        res.status(200).json({ message: 'Retrieval Successful', transactions: results });
         } else {
-          // If no matching category found
-          res.status(401).json({ message: 'No category found' });
+        // If no matching category found
+        res.status(401).json({ message: 'No category found' });
         }
-  
+
         await connection.end(); // Close the connection
-      } catch (error) {
+    } catch (error) {
         console.error('Database connection error:', error);
         res.status(500).json({ error: 'Database connection error' });
-      }
-    } else {
-      // Only allow POST method
-      res.status(405).json({ message: 'Method Not Allowed' });
     }
-  }
+    } else {
+    // Only allow POST method
+    res.status(405).json({ message: 'Method Not Allowed' });
+    }
+}
