@@ -87,18 +87,18 @@ const CategoryInput = () => {
       <div>
         <input
           className="inputBudget"
-          name="categoryAmount"
-          placeholder="Enter category amount"
-          value={categoryAmount}
-          onChange={handleAmountChange}
-          style={{ width: "42%" }}
-        />
-        <input
-          className="inputBudget"
           name="categoryName"
           placeholder="Enter category name"
           value={categoryName}
           onChange={handleNameChange}
+          style={{ width: "42%" }}
+        />
+        <input
+          className="inputBudget"
+          name="categoryAmount"
+          placeholder="Enter category amount"
+          value={categoryAmount}
+          onChange={handleAmountChange}
           style={{ width: "42%" }}
         />
         <button type="button" onClick={enterCategory}>
