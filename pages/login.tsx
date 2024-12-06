@@ -40,6 +40,30 @@ export default function Login() {
     }
   };
 
+  const signUp = async () => {
+    try {
+      setLoginMessage("");
+      // Make API request to the sign up endpoint
+      const response = await fetch("/api/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }), // Send email and password as JSON
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setLoginMessage("Sign up successful!");
+      } else {
+        setLoginMessage("Sign up failed: " + data.message);
+      }
+    } catch (error) {
+      setLoginMessage("Error signing up: " + error);
+    }
+  };
+
   return (
     <>
       {pageTitle}
@@ -61,6 +85,7 @@ export default function Login() {
         />
         <div className="button-container">
           <button onClick={login}>Login</button>
+          <button onClick={signUp}>Sign Up</button>
         </div>
         <p>{loginMessage}</p>
       </article>
