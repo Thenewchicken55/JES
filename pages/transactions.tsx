@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../app/globals.css";
 import { header, footer } from "../app/globals.tsx";
 import "@/pages/table.css";
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const pageTitle = (
   <>
@@ -108,11 +111,19 @@ const TransactionTable = () => {
     date: string;
   }
 
+  const router = useRouter();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [transactionsPerPage] = useState(5);
 
+  useEffect(() => {
+    const userId = Cookies.get('user_id');
+    if (!userId) {
+      router.push('/login');
+      return;
+    }
+    
   const fetchTransactions = async () => {
     // Fetch transactions logic
     try {
@@ -136,7 +147,6 @@ const TransactionTable = () => {
     }
   };
 
-  useEffect(() => {
     fetchTransactions();
     const intervalId = setInterval(fetchTransactions, 5000);
     return () => clearInterval(intervalId);

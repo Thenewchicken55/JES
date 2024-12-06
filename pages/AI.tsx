@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Groq from "groq-sdk";
 import { header, footer } from "../app/globals.tsx";
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import "../app/globals.css";
 
@@ -84,11 +87,18 @@ const pageTitle = (
 );
 
 export default function AI() {
+  const router = useRouter();
   const [userInput, setUserInput] = useState("");
   const [output, setOutput] = useState("");
   const [transactions, setTransactions] = useState<any[]>([]);
 
   useEffect(() => {
+    const userId = Cookies.get('user_id');
+    if (!userId) {
+      router.push('/login');
+      return;
+    }
+    
     const fetchAndSetTransactions = async () => {
       const transactionsData = await fetchTransactions();
       setTransactions(transactionsData);

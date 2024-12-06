@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { header, footer } from "../app/globals.tsx";
 import { categorySum } from "../lib/_API_Methods.tsx";
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import "@/app/globals.css";
 import "@/pages/table.css";
 
@@ -228,10 +231,17 @@ const renderTable = () => {
 };
 
 export default function Budgets() {
+  const router = useRouter();
   const [categoryDataArray, setCategoryData] = useState(new Map());
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
+    const userId = Cookies.get('user_id');
+    if (!userId) {
+      router.push('/login');
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const result = await fetchCategories(); // Await the async function
