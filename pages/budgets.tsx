@@ -167,6 +167,7 @@ const renderBudget = (month: number = 1) => {
 };
 
 const renderTable = () => {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [categories, setCategories] = useState<any[]>([]);
   const [categorySums, setCategorySums] = useState<{ [key: string]: number }>(
     {}
@@ -193,37 +194,99 @@ const renderTable = () => {
     return () => {};
   }, []);
 
+  // Function to toggle category selection
+  const toggleSelect = (category: string) => {
+    setSelectedCategories((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(category)) {
+        newSet.delete(category);
+      } else {
+        newSet.add(category);
+      }
+      return newSet;
+    });
+  };
+
+  // Function to delete selected categories
+  const deleteSelectedCategories = async () => {
+    try {
+      for (const category of selectedCategories) {
+        await fetch("/api/deleteCategory", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ category }),
+        });
+      }
+      // Refresh the table data after deletion
+      const updatedData = await fetchCategories();
+      setCategories(updatedData.category);
+      // Clear selected categories after deletion
+      setSelectedCategories(new Set());
+    } catch (error) {
+      console.error("Error deleting categories:", error);
+    }
+  };
+
   return (
-    <table className="table-container">
-      <thead>
-        <tr>
-          <th style={{ padding: "8px", textAlign: "left" }}>Category</th>
-          <th style={{ padding: "8px", textAlign: "left" }}>Limit</th>
-          <th style={{ padding: "8px", textAlign: "left" }}>Remaining</th>
-        </tr>
-      </thead>
-      <tbody>
-        {categories.map((category, index) => (
-          <tr key={index}>
-            <td>{category.category}</td>
-            <td>{category.category_limit}</td>
-            <td>
-              {category.category_limit -
-                (categorySums[category.category] || 0) <
-              0
-                ? `Exceeded by ${Math.abs(
-                    category.category_limit -
-                      (categorySums[category.category] || 0)
-                  ).toFixed(2)}`
-                : (
-                    category.category_limit -
-                    (categorySums[category.category] || 0)
-                  ).toFixed(2)}
-            </td>
+    <>
+      <table className="table-container">
+        <thead>
+          <tr>
+            <th style={{ padding: "8px", textAlign: "left" }}>Category</th>
+            <th style={{ padding: "8px", textAlign: "left" }}>Limit</th>
+            <th style={{ padding: "8px", textAlign: "left" }}>Remaining</th>
+            <th style={{ padding: "8px", textAlign: "center" }}>Select</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {categories.map((category, index) => (
+            <tr key={index}>
+              <td>{category.category}</td>
+              <td>{category.category_limit}</td>
+              <td>
+                {category.category_limit -
+                  (categorySums[category.category] || 0) <
+                0
+                  ? `Exceeded by ${Math.abs(
+                      category.category_limit -
+                        (categorySums[category.category] || 0)
+                    ).toFixed(2)}`
+                  : (
+                      category.category_limit -
+                      (categorySums[category.category] || 0)
+                    ).toFixed(2)}
+              </td>
+              <td style={{ textAlign: "center" }}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.has(category.category)}
+                    // Handle checkbox toggle
+                    onChange={() => toggleSelect(category.category)}
+                  />
+                </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <button
+        onClick={deleteSelectedCategories}
+        disabled={selectedCategories.size === 0} // Disable if no category is selected
+        style={{
+          marginTop: "10px",
+          padding: "10px",
+          backgroundColor: selectedCategories.size === 0 ? "#ccc" : "#f44336",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: selectedCategories.size === 0 ? "not-allowed" : "pointer",
+        }}
+      >
+        Delete Selected
+      </button>
+    </>
   );
 };
 
