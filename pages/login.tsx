@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../app/globals.css";
 import { header, footer } from "../app/globals.tsx";
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const pageTitle = (
   <>
@@ -9,6 +11,8 @@ const pageTitle = (
 );
 
 export default function Login() {
+  const router = useRouter();
+
   // State to handle email and password input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,6 +36,12 @@ export default function Login() {
 
       if (response.ok) {
         setLoginMessage("Login successful!");
+        // Set the cookie using js-cookie
+        Cookies.set('user_id', data.user_id, { expires: 7 }); // Set cookie to expire in 7 days
+
+        setTimeout(() => {
+          router.push('/transactions'); // Redirect to Transactions page after 1 second
+        }, 1000);
       } else {
         setLoginMessage("Login failed: " + data.message);
       }
