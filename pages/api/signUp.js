@@ -20,7 +20,7 @@ export default async function loginHandler(req, res) {
         if (results.length === 0) {
             // If no user exists, insert the new user
             const [insertResults] = await connection.query(
-              'INSERT INTO Users (email, password, firstname, lastname) VALUES (?, ?, "first", "last");',
+              'CALL CreateUserAndBudget(?, ?);',
               [email, password]
             );
 
