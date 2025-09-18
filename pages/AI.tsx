@@ -49,12 +49,12 @@ export const GroqChat: React.FC<GroqChatProps> = ({ content, transactions }) => 
           role: "system",
           content: "You are a helpful assistant. You are a financial advisor that provides helpful tips. Keep your answer short and concise.",
         },
-        {
+        { 
           role: "user",
           content: `Don't use markdown syntax:\n${content}\nTransactions: ${formattedTransactions}`,
         },
       ],
-      model: "llama-3.1-70b-versatile",
+      model: "llama-3.3-70b-versatile",
     });
   };
 
